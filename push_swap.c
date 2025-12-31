@@ -21,12 +21,11 @@ int main(int argc, char **argv)
 	// list_list(stack_a); // just show what we got.
 	// list_list(stack_b); // just show what we got.
 
-	write(1,"\033c",1);
 	while(1)
 	{
 		while(stack_a)
 		{
-			write(1, "\033cstack a >>>\n", 13);
+			write(1, "\033cstack a >>>\n", 14);
 			list_list(stack_a); // just show what we got.
 			write(1, "stack b >>>\n", 12);
 			list_list(stack_b); // just show what we got.
@@ -35,9 +34,9 @@ int main(int argc, char **argv)
 		}
 		while(stack_b)
 		{
-			write(1, "stack b >>>\n", 12);
+			write(1, "\033cstack b >>>\n", 14);
 			list_list(stack_b); // just show what we got.
-			write(1, "\033cstack a >>>\n", 13);
+			write(1, "stack a >>>\n", 12);
 			list_list(stack_a); // just show what we got.
 			getchar();
 			push(&stack_a, &stack_b, "pa\n");
