@@ -1,15 +1,34 @@
+// ====[ DEBUGGERS ]====
+#include "push_swap.debuggers.h"
+// =====================
 #include "push_swap.h"
-#include <stdio.h>
+#include "libft/libft.h"
 #include <unistd.h>
 
-void list_list(t_list *list)
+
+size_t get_moves_to_min(t_list *stack)
 {
-	while(list)
+	if(!stack || !(stack->content))
+		return 0;
+	size_t	moves;
+	size_t	ret_moves;
+	int		min = *(int *)(stack->content);
+	stack = stack->next;
+	moves = 1;
+	ret_moves = 0;
+	while(stack)
 	{
-		printf("- %d\n",*(int *)(list->content));
-		list = list->next;
+		if(*(int *)(stack -> content) < min)
+		{
+			min = *(int *)(stack -> content);
+			ret_moves = moves;
+		}
+		stack = stack->next;
+		moves++;
 	}
+	return ret_moves;
 }
+
 
 int main(int argc, char **argv)
 {
@@ -17,46 +36,28 @@ int main(int argc, char **argv)
 		return (0);
 	t_list *stack_a = get_list(argv+1);
 	t_list *stack_b = NULL;
+	size_t moves_to_max;
+	size_t stack_len;
 
-	// list_list(stack_a); // just show what we got.
-	// list_list(stack_b); // just show what we got.
-
-	while(1)
+	stack_len = ft_lstsize(stack_a);
+	while(stack_len)
 	{
-		while(stack_a)
+		// list_stacks(stack_a, stack_b);
+		moves_to_max = get_moves_to_min(stack_a);
+		if(moves_to_max < stack_len/2)
+			while(moves_to_max--)
+				rotate(&stack_a, "ra\n");
+		else
 		{
-			write(1, "\033cstack a >>>\n", 14);
-			list_list(stack_a); // just show what we got.
-			write(1, "stack b >>>\n", 12);
-			list_list(stack_b); // just show what we got.
-			getchar();
-			push(&stack_b, &stack_a, "pb\n");
+			moves_to_max = stack_len - moves_to_max;
+			while(moves_to_max--)
+				rrotate(&stack_a, "rra\n");
 		}
-		while(stack_b)
-		{
-			write(1, "\033cstack b >>>\n", 14);
-			list_list(stack_b); // just show what we got.
-			write(1, "stack a >>>\n", 12);
-			list_list(stack_a); // just show what we got.
-			getchar();
-			push(&stack_a, &stack_b, "pa\n");
-		}
+		push(&stack_b, &stack_a, "pb\n");
+		stack_len--;
 	}
-	// rotate(&stack_a,"ra\n");
-
+	while(stack_b)
+		push(&stack_a, &stack_b, "pa\n");
+	// list_stacks(stack_a, stack_b);
 	ft_lstclear(&stack_a, free);
 }
-
-
-//p *((int *)(headnode->content) )
-
-
-
-
-// ./push 0 1 2 3 4 "111 222 333 444" 99 102 3
-//
-// iterate on every argv,
-//  - if has no space: put its atoi on stack
-//  - if has space: split to an array, itterate and add atoi to stack
-//
-// current ft_lstnew makes a new shit list, content has pointer to variable
