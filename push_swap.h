@@ -11,7 +11,12 @@ typedef struct s_line{
 
 t_list *get_list(char **argv);
 
-void rotate(t_list **stack_p, char *act_name);
-void rrotate(t_list **stack_p, char *act_name);
-void push(t_list **stack_dst_p, t_list **stack_src_p, char *act_name);
+// Actions
+void	rotate(t_list **stack_p, char *act_name);
+void	rrotate(t_list **stack_p, char *act_name);
+void	push(t_list **stack_dst_p, t_list **stack_src_p, char *act_name);
+
+
+// Helpers
+short	init_stacks(t_list **stack_a , t_list **stack_b);
 #endif
