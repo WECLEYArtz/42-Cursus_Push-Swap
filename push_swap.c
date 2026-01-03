@@ -5,11 +5,10 @@
 #include "libft/libft.h"
 #include <unistd.h>
 
-
 int main(int argc, char **argv)
 {
 	if(argc < 2)
-		return (0);
+		return (1);
 	t_list *stack_a = get_list(argv+1);
 	t_list *stack_b = NULL;
 	short init_return;
