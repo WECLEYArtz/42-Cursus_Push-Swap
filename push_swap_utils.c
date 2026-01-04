@@ -2,8 +2,10 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-/*
-*/ 
+// === REMOVE LATER ===
+#include "stdio.h"
+#include "push_swap.debuggers.h"
+// ====================
 
 short	init_stacks(t_list **stack_a , t_list **stack_b){
 	size_t stack_size = ft_lstsize(*stack_a);
@@ -25,26 +27,44 @@ short	init_stacks(t_list **stack_a , t_list **stack_b){
 // value of instructions count for current stack (applied on current node).
 // static variable flag for wether instructions were applied.
 
-static void turk_rec(t_list **stack_a, t_list **stack_b, t_list *work_node)
+static void turk_rec(t_list **stack_a, t_list **stack_b, t_list *work_node, size_t stack_len)
 {
+	size_t	moves;
 	static size_t	index = 0;
-	static short	is_applied = 0;
 	static size_t	cheapest_cost = 0;
-	size_t moves;
+	static short	instr_applied = 0;
 
 	moves = 0;
 	if(work_node)
 	{
-		moves = get_moves_to_target(*stack_a, *(int*)(work_node->content))
-			+ index;
+		moves = get_moves_to_target(*stack_a, *(int*)(work_node->content));
+		if (moves < cheapest_cost)
+			cheapest_cost = moves;
 		index++;
-		turk_rec(stack_a, stack_b, work_node->next);
+		turk_rec(stack_a, stack_b, work_node->next, stack_len);
 	}
-	if (moves == cheapest_cost)
+	if (moves == cheapest_cost && !instr_applied)
+	{
+		while(moves--)
+			rotate(, char *act_name);
+		instr_applied = 1;
+		index--;
 
+		// printf("applying chepaset moves :%ld for digit %d",
+		// 	moves ,*(int*)(work_node->content));
+	}
 }
 
-void turk_sort(stack_a, stack_b)
+void turk_sort(t_list **stack_a, t_list **stack_b)
 {
-
+	size_t stack_a_len;
+	
+	stack_a_len = 3;
+	while(stack_b)
+	{
+		turk_rec(stack_a, stack_b, *stack_b, stack_a_len);
+		push(stack_a, stack_b, "pb\n");
+		stack_a_len++;
+		list_stacks(*stack_a, *stack_b);
+	}
 }
