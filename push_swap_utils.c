@@ -38,15 +38,28 @@ static void turk_rec(t_list **stack_a, t_list **stack_b, t_list *work_node, size
 	if(work_node)
 	{
 		moves = get_moves_to_target(*stack_a, *(int*)(work_node->content));
-		if (moves < cheapest_cost)
-			cheapest_cost = moves;
+		if (moves < stack_len/2)
+		{
+			if (stack_len - moves < cheapest_cost)
+				cheapest_cost = moves;
+		}
+		else
+			if (moves < cheapest_cost)
+				cheapest_cost = moves;
 		index++;
 		turk_rec(stack_a, stack_b, work_node->next, stack_len);
 	}
 	if (moves == cheapest_cost && !instr_applied)
 	{
-		while(moves--)
-			rotate(, char *act_name);
+		if (moves < stack_len/2) 
+		{
+			moves = stack_len - moves;
+			while(moves--)
+				rrotate(stack_b, "rrb\n");
+		}
+		else
+			while(moves--)
+				rotate(stack_b, "rb\n");
 		instr_applied = 1;
 		index--;
 
@@ -58,7 +71,7 @@ static void turk_rec(t_list **stack_a, t_list **stack_b, t_list *work_node, size
 void turk_sort(t_list **stack_a, t_list **stack_b)
 {
 	size_t stack_a_len;
-	
+
 	stack_a_len = 3;
 	while(stack_b)
 	{
