@@ -2,77 +2,82 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-static	t_cmp_vars	alloc_cmp_vars (int min, int target);
-static	t_mv_vars	alloc_mvs_vars(void);
-static	void update_for_min(t_list *stack, t_cmp_vars *cmps, t_mv_vars *mvs);
-static	void update_for_target(t_list *stack, t_cmp_vars *cmps, t_mv_vars *mvs);
+static	t_cmp_vars	init_cmp_vars (int min, int target);
+static	t_mv_vars	init_mvs_vars(void);
+
+static	void update_for_min(t_list **stack, t_cmp_vars *cmp, t_mv_vars *mvs);
+static	void update_for_target(t_list **stack, t_cmp_vars *cmp, t_mv_vars *mvs);
 
 /*
- *	get 
+ *	Lookup the best position for "target" int "stack",
+ *	Return the amount of rotations to get the value,
+ *	(returns only for none reversed rotation)
  *
  * */
 
-size_t get_moves_to_target(t_list *stack, int target)
+size_t get_moves_to_target(t_list *stack_a, int target)
 {
-	if(!stack || !(stack->content))
+	if(!stack_a || !(stack_a->content))
 		return 0;
 	t_cmp_vars cmps;
 	t_mv_vars mvs;
 
-	cmps = alloc_cmp_vars(*(int *)(stack->content), target);
-	mvs = alloc_mvs_vars();
-	while(stack)
+	cmps = init_cmp_vars(*(int *)(stack_a->content), target);
+	mvs = init_mvs_vars();
+	while(stack_a)
 	{
-		update_for_min(stack, &cmps, &mvs);
+		update_for_min(&stack_a, &cmps, &mvs);
 		if(cmps.min > target)
 			break;
 	}
-	while(stack)
-		update_for_target(stack, &cmps, &mvs);
-	return mvs.moves_ret;
+	while(stack_a)
+		update_for_target(&stack_a, &cmps, &mvs);
+	return mvs.final;
 }
 
 
-static	t_cmp_vars	alloc_cmp_vars (int min, int target)
+static	t_cmp_vars	init_cmp_vars (int min, int target)
 {
-	t_cmp_vars cmps;
+	t_cmp_vars cmp;
 
-	cmps.min = min;
-	cmps.target = target;
-	return cmps;
+	cmp.min = min;
+	cmp.target = target;
+	return cmp;
 }
 
 
-static	t_mv_vars	alloc_mvs_vars(void)
+static	t_mv_vars	init_mvs_vars(void)
 {
 	t_mv_vars mvs;
 
-	mvs.moves_count = 0;
-	mvs.moves_ret = 0;
+	mvs.current = 0;
+	mvs.final = 0;
 	return mvs;
 }
 
 
-static	void update_for_min(t_list *stack, t_cmp_vars *cmps, t_mv_vars *mvs)
+/*
+ *	Compare
+ * */
+static	void update_for_min(t_list **stack, t_cmp_vars *cmp, t_mv_vars *mvs)
 {
-	size_t value = *(int *)(stack->content);
-	if(value < cmps->min)
+	int	value = *(int *)((*stack)->content);
+	if(value < cmp->min)
 	{
-		cmps->min = value;
-		mvs->moves_ret = mvs->moves_count++;
-		*stack = *stack->next;
+		cmp->min = value;
+		mvs->final = mvs->current++;
 	}
+	*stack = (*stack)->next;
 }
 
 
-static	void update_for_target(t_list *stack, t_cmp_vars *cmps, t_mv_vars *mvs)
+static	void update_for_target(t_list **stack, t_cmp_vars *cmp, t_mv_vars *mvs)
 {
-	size_t value = *(int *)(stack->content);
-	if(value < cmps->min && value > cmps->target)
+	int	value = *(int *)((*stack)->content);
+	if(value < cmp->min && value > cmp->target)
 	{
-		cmps->min = value;
-		mvs->moves_ret = mvs->moves_count;
-		*stack = *stack->next;
+		cmp->min = value;
+		mvs->final = mvs->current;
 	}
+	*stack = (*stack)->next;
 }
-
