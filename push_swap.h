@@ -17,6 +17,17 @@ typedef struct s_mv_vars {
 	short	moves_ret;
 } t_mv_vars;
 
+typedef struct s_cheapest_reg {
+	size_t	index;
+	size_t	cost;
+	short	applied;
+} t_cheapest_node;
+
+typedef struct s_stack_len {
+	size_t	a;
+	size_t	b;
+} t_stack_len;
+
 t_list *get_list(char **argv);
 
 // Actions
