@@ -1,25 +1,25 @@
-#include "push_swap.h"
 #include "libft/libft.h"
+#include "push_swap.h"
 
 // 49448 43638 5664 46265 39002\ 31767\ 48734\ 10533 2019 35284
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	if(argc < 2)
-		return (1);
-	t_list *stack_a = get_list(argv+1);
-	t_list *stack_b = NULL;
-	t_stacks stacks;
+	t_list		*stack_a;
+	t_list		*stack_b;
+	t_stacks	stacks;
 
+	if (argc < 2)
+		return (1);
+	stack_a = get_list(argv + 1);
+	stack_b = NULL;
 	stacks.a = &stack_a;
 	stacks.b = &stack_b;
-	if (init_stacks(&stack_a, &stack_b) == 0)
-	{
-		// list_stacks(stack_a, stack_b);
+	init_stacks(&stack_a, &stack_b);
+	if (stack_b)
 		turk_sort(stacks);
-		// list_stacks(stack_a, stack_b);
-	}
 	ft_lstclear(&stack_a, free);
 }
+
 
 /*	Takes stack a and b to to push everything from a to b.
  *	Leaves 3 nodes in stack a.
@@ -27,16 +27,47 @@ int main(int argc, char **argv)
  *	otherwise the elements count in stack a if 3 or less only exist.
  *
  * */
+void	init_stacks(t_list **stack_a, t_list **stack_b)
+{
+	size_t	stack_size;
 
-short	init_stacks(t_list **stack_a , t_list **stack_b){
-	size_t stack_size = ft_lstsize(*stack_a);
-	if(stack_size > 3)
+	stack_size = ft_lstsize(*stack_a);
+	if (stack_size > 3)
 	{
 		stack_size -= 3;
-		while(stack_size--)
+		while (stack_size--)
 			push(stack_b, stack_a, "b");
-		return 0;
 	}
-	else
-		return stack_size;
+	hard_sort(stack_a);
+}
+
+void	hard_sort(t_list **st_a)
+{
+	// if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
+	// {
+	// 	if ((*st_a)->next->next)
+	// 	{
+	// 		if(*(int *)((*st_a)->content) > *(int *)((*st_a)->next->next->content))
+	// 		{
+	// 			rotate(st_a, "a");
+	// 			swap(st_a, "a");
+	// 		}
+	// 		else if(*(int *)((*st_a)->next->content)
+	// 				> *(int *)((*st_a)->next->next->content))
+	// 		{
+	// 			rrotate(st_a, "a");
+	// 			swap(st_a, "a");
+	// 		}
+	// 	}
+	// 	else
+	// 		swap(st_a, "a");
+	// }
+	// else if (((*st_a)->next->next)
+	// 		&& *(int *)((*st_a)->next->content)
+	// 		> *(int *)((*st_a)->next->next->content))
+	// {
+	// 	rrotate(st_a, "a");
+	// 	if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
+	// 		swap(st_a, "a");
+	// }
 }

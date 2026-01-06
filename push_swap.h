@@ -53,9 +53,11 @@ void turk_sort(t_stacks stacks);
 void	rotate(t_list **stack_p, char *act_name);
 void	rrotate(t_list **stack_p, char *act_name);
 void	push(t_list **stack_dst_p, t_list **stack_src_p, char *act_name);
+void	swap(t_list **stack_p, char *stack_name);
 
 // Helpers
-short	init_stacks(t_list **stack_a , t_list **stack_b);
+void	hard_sort(t_list **st_a);
+void	init_stacks(t_list **stack_a , t_list **stack_b);
 size_t	get_moves_to_target(t_list *stack, int target);
 t_list *get_list(char **argv);
 

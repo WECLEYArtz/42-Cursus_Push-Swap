@@ -48,8 +48,7 @@ static	void	update_cheapest_node(t_cheapest *cheapest_node,
  *	then update the "applied" flag.
  *
  * */
-static void	turk_rec(size_t index,
-		t_stacks stacks, t_list *work_node, t_stack_len stack_len)
+static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node, t_stack_len stack_len)
 {
 	size_t				moves;
 	static t_cheapest	cheapest; // allocate instaed, stack will keep wrong data, cant easielly reset

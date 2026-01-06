@@ -53,3 +53,19 @@ void rrotate(t_list **stack_p, char *stack_name)
 	// write(1, "\n" , 1);
 	stack_name=NULL;
 }
+
+void swap(t_list **stack_p, char *stack_name)
+{
+	if(!stack_p || !(*stack_p) || !(*stack_p)->next)
+		return;
+
+	t_list *tmp = *stack_p;
+	*stack_p = (*stack_p)->next;
+	tmp->next = (*stack_p)->next;
+	(*stack_p)->next = tmp;
+
+	// write(1, "s" , 1);
+	// write(1, stack_name , 1);
+	// write(1, "\n" , 1);
+	stack_name=NULL;
+}
