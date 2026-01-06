@@ -62,11 +62,12 @@ static	t_mv_vars	init_mvs_vars(void)
 static	void update_for_min(t_list **stack, t_cmp_vars *cmp, t_mv_vars *mvs)
 {
 	int	value = *(int *)((*stack)->content);
-	if(value < cmp->min)
+	if(value < cmp->min || value > cmp->target)
 	{
 		cmp->min = value;
-		mvs->final = mvs->current++;
+		mvs->final = mvs->current;
 	}
+	mvs->current++;
 	*stack = (*stack)->next;
 }
 
@@ -79,5 +80,6 @@ static	void update_for_target(t_list **stack, t_cmp_vars *cmp, t_mv_vars *mvs)
 		cmp->min = value;
 		mvs->final = mvs->current;
 	}
+	mvs->current++;
 	*stack = (*stack)->next;
 }

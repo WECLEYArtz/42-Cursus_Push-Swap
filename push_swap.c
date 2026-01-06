@@ -14,9 +14,9 @@ int main(int argc, char **argv)
 	stacks.b = &stack_b;
 	if (init_stacks(&stack_a, &stack_b) == 0)
 	{
-		list_stacks(stack_a, stack_b);
+		// list_stacks(stack_a, stack_b);
 		turk_sort(stacks);
-		list_stacks(stack_a, stack_b);
+		// list_stacks(stack_a, stack_b);
 	}
 	ft_lstclear(&stack_a, free);
 }

@@ -11,7 +11,7 @@ static void	apply_instr(t_stacks stacks, t_stack_len stack_len, size_t moves,
 			rrotate(stacks.a, "a");
 	}
 	else
-		while (moves)
+		while (moves--)
 			rotate(stacks.a, "a");
 	if (index < stack_len.b / 2)
 	{
@@ -20,23 +20,22 @@ static void	apply_instr(t_stacks stacks, t_stack_len stack_len, size_t moves,
 			rrotate(stacks.b, "b");
 	}
 	else
-		while (index)
+		while (index--)
 			rotate(stacks.b, "b");
 }
 
-static short	update_cheapest_node(t_cheapest cheapest_node,
+static	void	update_cheapest_node(t_cheapest *cheapest_node,
 		t_stack_len stack_len, size_t moves, size_t index)
 {
-	if (moves < stack_len.a / 2)
+	if (moves > stack_len.a / 2)
 		moves = stack_len.a - moves;
-	if (index < stack_len.b / 2)
+	if (index > stack_len.b / 2)
 		index = stack_len.b - index;
-	if (moves + index < cheapest_node.cost)
+	if (moves + index < cheapest_node->cost)
 	{
-		cheapest_node.index = index;
-		return (1);
+		cheapest_node->cost = moves + index;
+		cheapest_node->index = index;
 	}
-	return (0);
 }
 
 /*	[Forward:]
@@ -49,18 +48,24 @@ static short	update_cheapest_node(t_cheapest cheapest_node,
  *	then update the "applied" flag.
  *
  * */
-static void	turk_rec(t_stacks stacks, t_list *work_node, t_stack_len stack_len)
+static void	turk_rec(size_t index,
+		t_stacks stacks, t_list *work_node, t_stack_len stack_len)
 {
 	size_t				moves;
-	static size_t		index = 0;
-	static t_cheapest	cheapest;
+	static t_cheapest	cheapest; // allocate instaed, stack will keep wrong data, cant easielly reset
+	if(index == 0)
+	{
+		cheapest.index = 0; 
+		cheapest.cost = LONG_MAX; 
+		cheapest.applied = 0;
+	}
 
 	moves = 0;
 	if (work_node)
 	{
 		moves = get_moves_to_target(*stacks.a, *(int *)(work_node->content));
-		update_cheapest_node(cheapest, stack_len, moves, index++);
-		turk_rec(stacks, work_node->next, stack_len);
+		update_cheapest_node(&cheapest, stack_len, moves, index);
+		turk_rec(index+1, stacks, work_node->next, stack_len);
 	}
 	if (cheapest.index == index && !cheapest.applied)
 	{
@@ -78,9 +83,10 @@ void	turk_sort(t_stacks stacks)
 	stack_len.b = ft_lstsize(*stacks.b);
 	while (*stacks.b)
 	{
-		turk_rec(stacks, *stacks.b, stack_len);
+		turk_rec(0 ,stacks, *stacks.b, stack_len);
 		push(stacks.a, stacks.b, "a");
 		stack_len.a++;
-		list_stacks(*stacks.a, *stacks.b);
+		stack_len.b--;
+		// list_stacks(*stacks.a, *stacks.b);
 	}
 }

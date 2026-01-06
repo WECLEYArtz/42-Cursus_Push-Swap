@@ -7,9 +7,10 @@ void push(t_list **stack_dst_p, t_list **stack_src_p, char *stack_name)
 	t_list *tmp = (*stack_src_p)->next;
 	ft_lstadd_front(stack_dst_p, *stack_src_p);
 	*stack_src_p = tmp;
-	write(1, "p" , 1);
-	write(1, stack_name , 1);
-	write(1, "\n" , 1);
+	// write(1, "p" , 1);
+	// write(1, stack_name , 1);
+	// write(1, "\n" , 1);
+	stack_name=NULL;
 }
 
 
@@ -22,9 +23,10 @@ void rotate(t_list **stack_p, char *stack_name)
 	ft_lstadd_back(stack_p, *stack_p);
 	newback->next = NULL;
 	*stack_p = newhead;
-	write(1, "r" , 1);
-	write(1, stack_name , 1);
-	write(1, "\n" , 1);
+	// write(1, "r" , 1);
+	// write(1, stack_name , 1);
+	// write(1, "\n" , 1);
+	stack_name=NULL;
 }
 
 
@@ -46,7 +48,8 @@ void rrotate(t_list **stack_p, char *stack_name)
 	last_node -> next =  *stack_p;
 	*stack_p = last_node;
 
-	write(1, "rr" , 2);
-	write(1, stack_name , 1);
-	write(1, "\n" , 1);
+	// write(1, "rr" , 2);
+	// write(1, stack_name , 1);
+	// write(1, "\n" , 1);
+	stack_name=NULL;
 }
