@@ -14,10 +14,11 @@ int	main(int argc, char **argv)
 	stack_b = NULL;
 	stacks.a = &stack_a;
 	stacks.b = &stack_b;
-	init_stacks(&stack_a, &stack_b);
+	init_stacks(stacks);
 	if (stack_b)
 		turk_sort(stacks);
-	ft_lstclear(&stack_a, free);
+	ft_lstclear(stacks.a, free);
+	ft_lstclear(stacks.b, free);
 }
 
 
@@ -27,18 +28,18 @@ int	main(int argc, char **argv)
  *	otherwise the elements count in stack a if 3 or less only exist.
  *
  * */
-void	init_stacks(t_list **stack_a, t_list **stack_b)
+void	init_stacks(t_stacks stacks)
 {
 	size_t	stack_size;
 
-	stack_size = ft_lstsize(*stack_a);
+	stack_size = ft_lstsize(*(stacks.a));
 	if (stack_size > 3)
 	{
 		stack_size -= 3;
 		while (stack_size--)
-			push(stack_b, stack_a, "b");
+			push(stacks.b, stacks.a, "b");
 	}
-	hard_sort(stack_a);
+	hard_sort(stacks.a);
 }
 
 void	hard_sort(t_list **st_a)

@@ -1,10 +1,6 @@
 #ifndef PUSH_SWAP_H
 #define PUSH_SWAP_H
 
-// ====[ DEBUGGERS ]====
-#include "push_swap.debuggers.h"
-// =====================
-
 #include "libft/libft.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -16,13 +12,15 @@
 typedef struct s_cmp_vars {
 	int		min;
 	int		target;
+	size_t	iterations;
+	size_t	result;
+
 } t_cmp_vars;
 
 typedef struct s_mv_vars {
 	size_t	current;
 	short	final;
 } t_mv_vars;
-
 
 
 // +=========================+
@@ -57,7 +55,7 @@ void	swap(t_list **stack_p, char *stack_name);
 
 // Helpers
 void	hard_sort(t_list **st_a);
-void	init_stacks(t_list **stack_a , t_list **stack_b);
+void	init_stacks(t_stacks stacks);
 size_t	get_moves_to_target(t_list *stack, int target);
 t_list *get_list(char **argv);
 

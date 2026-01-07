@@ -1,9 +1,32 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
+static void	turk_rec(size_t index,
+		t_stacks stacks, t_list *work_node, t_stack_len stack_len);
+
+void	turk_sort(t_stacks stacks)
+{
+	t_stack_len	stack_len;
+
+	stack_len.a = ft_lstsize(*stacks.a);
+	stack_len.b = ft_lstsize(*stacks.b);
+	while (*stacks.b)
+	{
+		turk_rec(0 ,stacks, *stacks.b, stack_len);
+		push(stacks.a, stacks.b, "a");
+		stack_len.a++;
+		stack_len.b--;
+	}
+}
+
 static void	apply_instr(t_stacks stacks, t_stack_len stack_len, size_t moves,
 		size_t index)
 {
+
+	// [ Potential Solution ]
+	// if ((moves > stack_len.a / 2 && index > stack_len.b / 2)
+	// 	|| (moves < stack_len.a / 2 && index < stack_len.b / 2))
+	// 	optimise_instr();
 	if (moves > stack_len.a / 2)
 	{
 		moves = stack_len.a - moves;
@@ -64,6 +87,8 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node, t_stack_l
 	{
 		moves = get_moves_to_target(*stacks.a, *(int *)(work_node->content));
 		update_cheapest_node(&cheapest, stack_len, moves, index);
+		if(!cheapest.cost)
+			return;
 		turk_rec(index+1, stacks, work_node->next, stack_len);
 	}
 	if (cheapest.index == index && !cheapest.applied)
@@ -74,18 +99,3 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node, t_stack_l
 }
 
 
-void	turk_sort(t_stacks stacks)
-{
-	t_stack_len	stack_len;
-
-	stack_len.a = ft_lstsize(*stacks.a);
-	stack_len.b = ft_lstsize(*stacks.b);
-	while (*stacks.b)
-	{
-		turk_rec(0 ,stacks, *stacks.b, stack_len);
-		push(stacks.a, stacks.b, "a");
-		stack_len.a++;
-		stack_len.b--;
-		// list_stacks(*stacks.a, *stacks.b);
-	}
-}
