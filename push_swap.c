@@ -43,31 +43,19 @@ void	init_stacks(t_list **stack_a, t_list **stack_b)
 
 void	hard_sort(t_list **st_a)
 {
-	// if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
-	// {
-	// 	if ((*st_a)->next->next)
-	// 	{
-	// 		if(*(int *)((*st_a)->content) > *(int *)((*st_a)->next->next->content))
-	// 		{
-	// 			rotate(st_a, "a");
-	// 			swap(st_a, "a");
-	// 		}
-	// 		else if(*(int *)((*st_a)->next->content)
-	// 				> *(int *)((*st_a)->next->next->content))
-	// 		{
-	// 			rrotate(st_a, "a");
-	// 			swap(st_a, "a");
-	// 		}
-	// 	}
-	// 	else
-	// 		swap(st_a, "a");
-	// }
-	// else if (((*st_a)->next->next)
-	// 		&& *(int *)((*st_a)->next->content)
-	// 		> *(int *)((*st_a)->next->next->content))
-	// {
-	// 	rrotate(st_a, "a");
-	// 	if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
-	// 		swap(st_a, "a");
-	// }
+	if(!(*st_a)->next)
+			return;
+	if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
+		swap(st_a, "a");
+
+	if (((*st_a)->next->next) &&
+			(*(int *)((*st_a)->next->content)
+			 > *(int *)((*st_a)->next->next->content)))
+	{
+		rotate(st_a, "a");
+		swap(st_a, "a");
+		rrotate(st_a, "a");
+		if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
+			swap(st_a, "a");
+	}
 }

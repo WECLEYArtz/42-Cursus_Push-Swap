@@ -4,7 +4,7 @@
 static void	apply_instr(t_stacks stacks, t_stack_len stack_len, size_t moves,
 		size_t index)
 {
-	if (moves < stack_len.a / 2)
+	if (moves > stack_len.a / 2)
 	{
 		moves = stack_len.a - moves;
 		while (moves--)
@@ -13,7 +13,7 @@ static void	apply_instr(t_stacks stacks, t_stack_len stack_len, size_t moves,
 	else
 		while (moves--)
 			rotate(stacks.a, "a");
-	if (index < stack_len.b / 2)
+	if (index > stack_len.b / 2)
 	{
 		index = stack_len.b - index;
 		while (index--)
