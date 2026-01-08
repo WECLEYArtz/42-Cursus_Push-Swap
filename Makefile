@@ -9,8 +9,8 @@ LIBFT = libft.a
 SRC =\
 push_swap.c\
 get_list.c\
-get_moves_to_target.c\
-push_swap_actions.c\
+get_moves.c\
+actions.c\
 turk_sort.c
 
 SRC_DEBUG = push_swap_debuggers.c

@@ -43,6 +43,7 @@ push_swap
 *.su
 *.idb
 *.pdb
+log*
 checker_linux
 checker_macos
 

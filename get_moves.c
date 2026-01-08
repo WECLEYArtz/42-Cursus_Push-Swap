@@ -11,7 +11,6 @@ static	void update_for_target(t_list **stack, t_cmp_vars *cmp);
  *	(returns only for none reversed rotation)
  *
  * */
-
 size_t get_moves_to_target(t_list *stack_a, int target)
 {
 	if(!stack_a || !(stack_a->content))

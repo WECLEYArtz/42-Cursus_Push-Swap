@@ -17,12 +17,6 @@ typedef struct s_cmp_vars {
 
 } t_cmp_vars;
 
-typedef struct s_mv_vars {
-	size_t	current;
-	short	final;
-} t_mv_vars;
-
-
 // +=========================+
 // |        TURK_SORT        |
 // +=========================+
@@ -41,22 +35,38 @@ typedef struct s_stacks {
 	t_list	**a;
 	t_list	**b;
 } t_stacks;
+
+typedef struct s_mvs_rots {
+	size_t	moves_b;
+	short	rev_direct_a;
+	size_t	moves_a;
+	short	rev_direct_b;
+} t_mvs_rots;
 // +~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
 // Main Functions
 void turk_sort(t_stacks stacks);
 
+
+// Actions Callers
+void	r(t_list **stack_p, char *act_name);
+void	rr(t_list **stack_p, char *act_name);
+void	p(t_list **stack_dst_p, t_list **stack_src_p, char *act_name);
+void	s(t_list **stack_p, char *stack_name);
+void	rr__(t_stacks stacks);
+void	rrr_(t_stacks stacks);
+
 // Actions
-void	rotate(t_list **stack_p, char *act_name);
-void	rrotate(t_list **stack_p, char *act_name);
-void	push(t_list **stack_dst_p, t_list **stack_src_p, char *act_name);
-void	swap(t_list **stack_p, char *stack_name);
+void	rotate(t_list **stack_p);
+void	revrotate(t_list **stack_p);
+void	push(t_list **stack_dst_p, t_list **stack_src_p);
+void	swap(t_list **stack_p);
 
 // Helpers
 void	hard_sort(t_list **st_a);
 void	init_stacks(t_stacks stacks);
-size_t	get_moves_to_target(t_list *stack, int target);
+size_t	get_moves(t_list *stack, int target);
 t_list *get_list(char **argv);
 
 #endif

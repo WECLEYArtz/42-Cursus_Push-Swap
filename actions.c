@@ -1,24 +1,18 @@
 #include "push_swap.h"
 
-short silent = 0;
+const short silent = 0;
 
-void push(t_list **stack_dst_p, t_list **stack_src_p, char *stack_name)
+void push(t_list **stack_dst_p, t_list **stack_src_p)
 {
 	if(!stack_src_p || !*stack_src_p)
 		return;
 	t_list *tmp = (*stack_src_p)->next;
 	ft_lstadd_front(stack_dst_p, *stack_src_p);
 	*stack_src_p = tmp;
-	if(!silent)
-	{
-		write(1, "p" , 1);
-		write(1, stack_name , 1);
-		write(1, "\n" , 1);
-	}
 }
 
 
-void rotate(t_list **stack_p, char *stack_name)
+void rotate(t_list **stack_p)
 {
 	if(!stack_p || !(*stack_p) || !(*stack_p)->next)
 		return;
@@ -27,17 +21,10 @@ void rotate(t_list **stack_p, char *stack_name)
 	ft_lstadd_back(stack_p, *stack_p);
 	newback->next = NULL;
 	*stack_p = newhead;
-
-	if(!silent)
-	{
-		write(1, "r" , 1);
-		write(1, stack_name , 1);
-		write(1, "\n" , 1);
-	}
 }
 
 
-void rrotate(t_list **stack_p, char *stack_name)
+void revrotate(t_list **stack_p)
 {
 	if(!stack_p || !(*stack_p) || !(*stack_p)->next)
 		return;
@@ -54,16 +41,9 @@ void rrotate(t_list **stack_p, char *stack_name)
 	last_node_depth1 -> next = NULL;
 	last_node -> next =  *stack_p;
 	*stack_p = last_node;
-
-	if(!silent)
-	{
-		write(1, "rr" , 2);
-		write(1, stack_name , 1);
-		write(1, "\n" , 1);
-	}
 }
 
-void swap(t_list **stack_p, char *stack_name)
+void swap(t_list **stack_p)
 {
 	if(!stack_p || !(*stack_p) || !(*stack_p)->next)
 		return;
@@ -72,13 +52,4 @@ void swap(t_list **stack_p, char *stack_name)
 	*stack_p = (*stack_p)->next;
 	tmp->next = (*stack_p)->next;
 	(*stack_p)->next = tmp;
-
-	if(!silent)
-	{
-		write(1, "s" , 1);
-		write(1, stack_name , 1);
-		write(1, "\n" , 1);
-	}
 }
-
-

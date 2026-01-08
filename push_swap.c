@@ -37,7 +37,7 @@ void	init_stacks(t_stacks stacks)
 	{
 		stack_size -= 3;
 		while (stack_size--)
-			push(stacks.b, stacks.a, "b");
+			p(stacks.b, stacks.a, "b");
 	}
 	hard_sort(stacks.a);
 }
@@ -47,16 +47,16 @@ void	hard_sort(t_list **st_a)
 	if(!(*st_a)->next)
 			return;
 	if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
-		swap(st_a, "a");
+		s(st_a, "a");
 
 	if (((*st_a)->next->next) &&
 			(*(int *)((*st_a)->next->content)
 			 > *(int *)((*st_a)->next->next->content)))
 	{
-		rotate(st_a, "a");
-		swap(st_a, "a");
-		rrotate(st_a, "a");
+		r(st_a, "a");
+		s(st_a, "a");
+		rr(st_a, "a");
 		if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
-			swap(st_a, "a");
+			s(st_a, "a");
 	}
 }
