@@ -22,25 +22,27 @@ void	turk_sort(t_stacks stacks)
 
 static void	apply_instr(t_stacks stacks, t_stack_len stack_len, ssize_t moves, ssize_t index)
 {
-	// optimise_instr(stacks, stack_len, &moves, &index);
-	if (moves > stack_len.a / 2)
+	moves = optimise_instr(stack_len, index);
+	index = optimise_instr(stack_len, moves);
+
+	if (moves > stack_len.a / 2 || index > stack_len.a / 2)
 	{
-		moves = stack_len.a - moves;
-		while (moves--)
+		while (moves++ < 0 && index++ < 0)
+			rrr(stacks.a, "a");
+		while (index++ < 0)
+			rrotate(stacks.a, "a");
+		while (moves++ < 0)
 			rrotate(stacks.a, "a");
 	}
-	else
-		while (moves--)
-			rotate(stacks.a, "a");
-	if (index > stack_len.b / 2)
+	if (moves < stack_len.a / 2 || index < stack_len.a / 2)
 	{
-		index = stack_len.b - index;
-		while (index--)
-			rrotate(stacks.b, "b");
+		while (moves++ > 0 && index++ > 0)
+			rrr(stacks.a, "a");
+		while (index++ > 0)
+			rrotate(stacks.a, "a");
+		while (moves++ > 0)
+			rrotate(stacks.a, "a");
 	}
-	else
-		while (index--)
-			rotate(stacks.b, "b");
 }
 
 static	void	update_cheapest_node(t_cheapest *cheapest_node,
