@@ -19,14 +19,10 @@ void	turk_sort(t_stacks stacks)
 	}
 }
 
-static void	apply_instr(t_stacks stacks, t_stack_len stack_len, size_t moves,
-		size_t index)
-{
 
-	// [ Potential Solution ]
-	// if ((moves > stack_len.a / 2 && index > stack_len.b / 2)
-	// 	|| (moves < stack_len.a / 2 && index < stack_len.b / 2))
-	// 	optimise_instr();
+static void	apply_instr(t_stacks stacks, t_stack_len stack_len, ssize_t moves, ssize_t index)
+{
+	// optimise_instr(stacks, stack_len, &moves, &index);
 	if (moves > stack_len.a / 2)
 	{
 		moves = stack_len.a - moves;
@@ -50,6 +46,7 @@ static void	apply_instr(t_stacks stacks, t_stack_len stack_len, size_t moves,
 static	void	update_cheapest_node(t_cheapest *cheapest_node,
 		t_stack_len stack_len, size_t moves, size_t index)
 {
+	size_t og_index = index;
 	if (moves > stack_len.a / 2)
 		moves = stack_len.a - moves;
 	if (index > stack_len.b / 2)
@@ -57,7 +54,7 @@ static	void	update_cheapest_node(t_cheapest *cheapest_node,
 	if (moves + index < cheapest_node->cost)
 	{
 		cheapest_node->cost = moves + index;
-		cheapest_node->index = index;
+		cheapest_node->index = og_index;
 	}
 }
 
