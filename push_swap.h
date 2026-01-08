@@ -63,10 +63,12 @@ void	revrotate(t_list **stack_p);
 void	push(t_list **stack_dst_p, t_list **stack_src_p);
 void	swap(t_list **stack_p);
 
-// Helpers
-void	hard_sort(t_list **st_a);
-void	init_stacks(t_stacks stacks);
-size_t	get_moves(t_list *stack, int target);
+// Getters
 t_list *get_list(char **argv);
+size_t get_moves(t_list *stack_a, int target);
+
+// helpers
+t_cmp_vars	init_cmp_vars (int min, int target);
+void update_for_min(t_list **stack, t_cmp_vars *cmp);
 
 #endif

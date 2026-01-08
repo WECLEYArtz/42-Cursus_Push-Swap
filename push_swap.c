@@ -2,6 +2,10 @@
 #include "push_swap.h"
 
 // 49448 43638 5664 46265 39002\ 31767\ 48734\ 10533 2019 35284
+
+static void	init_stacks(t_stacks stacks);
+static void	hard_sort(t_list **st_a);
+
 int	main(int argc, char **argv)
 {
 	t_list		*stack_a;
@@ -28,7 +32,7 @@ int	main(int argc, char **argv)
  *	otherwise the elements count in stack a if 3 or less only exist.
  *
  * */
-void	init_stacks(t_stacks stacks)
+static void	init_stacks(t_stacks stacks)
 {
 	size_t	stack_size;
 
@@ -42,7 +46,7 @@ void	init_stacks(t_stacks stacks)
 	hard_sort(stacks.a);
 }
 
-void	hard_sort(t_list **st_a)
+static void	hard_sort(t_list **st_a)
 {
 	if(!(*st_a)->next)
 			return;

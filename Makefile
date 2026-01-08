@@ -7,13 +7,12 @@ AR = ar rcs
 LIBFT = libft.a
 
 SRC =\
-push_swap.c\
+actions.c\
+actions_caller.c\
 get_list.c\
 get_moves.c\
-actions.c\
+push_swap.c\
 turk_sort.c
-
-SRC_DEBUG = push_swap_debuggers.c
 
 OBJ = $(SRC:.c=.o)
 

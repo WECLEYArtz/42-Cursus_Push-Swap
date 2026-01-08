@@ -1,8 +1,6 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-static	t_cmp_vars	init_cmp_vars (int min, int target);
-static	void update_for_min(t_list **stack, t_cmp_vars *cmp);
 static	void update_for_target(t_list **stack, t_cmp_vars *cmp);
 
 /*
@@ -11,7 +9,7 @@ static	void update_for_target(t_list **stack, t_cmp_vars *cmp);
  *	(returns only for none reversed rotation)
  *
  * */
-size_t get_moves_to_target(t_list *stack_a, int target)
+size_t get_moves(t_list *stack_a, int target)
 {
 	if(!stack_a || !(stack_a->content))
 		return 0;
@@ -34,7 +32,7 @@ size_t get_moves_to_target(t_list *stack_a, int target)
 }
 
 
-static	t_cmp_vars	init_cmp_vars (int min, int target)
+t_cmp_vars	init_cmp_vars (int min, int target)
 {
 	t_cmp_vars cmp;
 
@@ -46,7 +44,7 @@ static	t_cmp_vars	init_cmp_vars (int min, int target)
 }
 
 
-static	void update_for_min(t_list **stack, t_cmp_vars *cmp)
+void update_for_min(t_list **stack, t_cmp_vars *cmp)
 {
 	int	value = *(int *)((*stack)->content);
 	if(value < cmp->min || value > cmp->target)

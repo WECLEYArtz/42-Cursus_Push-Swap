@@ -54,13 +54,13 @@ void	rr__(t_stacks stacks)
 	rotate(stacks.a);
 	rotate(stacks.b);
 	if(!silent)
-		write(1, "rr\n" , 4);
+		write(1, "rr\n" , 3);
 }
 
 void	rrr_(t_stacks stacks)
 {
-	rotate(stacks.a);
-	rotate(stacks.b);
+	revrotate(stacks.a);
+	revrotate(stacks.b);
 	if(!silent)
 		write(1, "rrr\n" , 4);
 }

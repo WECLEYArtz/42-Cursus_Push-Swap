@@ -3,6 +3,7 @@
 
 static void	turk_rec(size_t index,
 		t_stacks stacks, t_list *work_node, t_stack_len stack_len);
+static void final_sort(t_list **stack_a, size_t stack_len_a);
 
 void	turk_sort(t_stacks stacks)
 {
@@ -17,6 +18,7 @@ void	turk_sort(t_stacks stacks)
 		stack_len.a++;
 		stack_len.b--;
 	}
+	final_sort(stacks.a, stack_len.a);
 }
 
 
@@ -25,16 +27,24 @@ static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 	void (*rotfunc[2])(t_list **stack_p, char *act_name);
 
 	rotfunc[0] = r;
-	rotfunc[0] = rr;
+	rotfunc[1] = rr;
 	if(rot.rev_direct_a && rot.rev_direct_b)
 	{
-		while(rot.moves_a && rot.rev_direct_b)
+		while(rot.moves_a && rot.moves_b)
+		{
 			rrr_(stacks);
+			rot.moves_a--;
+			rot.moves_b--;
+		}
 	}
 	else if(!rot.rev_direct_a && !rot.rev_direct_b)
 	{
-		while( rot.moves_a && rot.rev_direct_b)
+		while( rot.moves_a && rot.moves_b)
+		{
 			rr__(stacks);
+			rot.moves_a--;
+			rot.moves_b--;
+		}
 	}
 	while(rot.moves_a--)
 		rotfunc[rot.rev_direct_a](stacks.a, "a");
@@ -102,4 +112,26 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node, t_stack_l
 		apply_instr(stacks, rots);
 		cheapest.applied = 1;
 	}
+}
+
+static void final_sort(t_list **stack_a, size_t stack_len_a)
+{
+
+	t_list *work_node;
+	t_cmp_vars cmp;
+
+	work_node = *stack_a;
+	cmp = init_cmp_vars(*((int *)work_node->content), INT_MAX);
+
+	while (work_node)
+		update_for_min(&work_node, &cmp);
+	if (cmp.result > stack_len_a / 2)
+	{
+		cmp.result = stack_len_a - cmp.result;
+		while(cmp.result--)
+			rr(stack_a, "a");
+	}
+	else
+		while(cmp.result--)
+			r(stack_a, "a");
 }

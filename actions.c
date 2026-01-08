@@ -1,7 +1,5 @@
 #include "push_swap.h"
 
-const short silent = 0;
-
 void push(t_list **stack_dst_p, t_list **stack_src_p)
 {
 	if(!stack_src_p || !*stack_src_p)
