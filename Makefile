@@ -1,10 +1,11 @@
 HDR = push_swap.h
-NAME = push_swap.a
 CC = cc -g3
 CFLAGS = -c -Werror -Wall -Wextra
 AR = ar rcs
+BIN = push_swap
 
-LIBFT = libft.a
+NAME = push_swap.a
+LIBFT = libft/libft.a
 
 SRC =\
 actions.c\
@@ -16,12 +17,15 @@ turk_sort.c
 
 OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
+all: $(BIN)
 
-$(NAME): $(LIBFT) $(OBJ)
+$(BIN): $(NAME) $(LIBFT) 
+	cc -o $(BIN) $^
 
 $(LIBFT):
 	make all bonus -C ./libft CC="cc -g3"
+
+$(NAME): $(OBJ)
 
 %.o: %.c $(HDR)
 	$(CC) $(CFLAGS) $<
