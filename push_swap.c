@@ -1,8 +1,9 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-static t_stacks	init_stacks(t_list **stack_a, t_list **stack_b, char **argv);
+void	init_stacks(t_stacks stacks);
 static void	hard_sort(t_list **st_a);
+static void	examin_status(t_list **stack);
 
 int	main(int argc, char **argv)
 {
@@ -10,15 +11,14 @@ int	main(int argc, char **argv)
 	t_list		*stack_b;
 	t_stacks	stacks;
 
+	stack_a = get_list(argv+1);
+	stack_b = NULL;
+	stacks.a = &stack_a;
+	stacks.b = &stack_b;
 	if (argc < 2)
 		return (1);
-	stacks = init_stacks(&stack_a, &stack_b, argv);
-
-	// if(is_sorted())
-	// 		return; >>>  check wether its sorted or not befor doing anything
-	//
-	// check_circular(); >>> needed to avoid pushing for easy to sort case
-
+	examin_status(stacks.a);
+	init_stacks(stacks);
 	if (stack_b)
 		turk_sort(stacks);
 	ft_lstclear(stacks.a, free);
@@ -32,15 +32,10 @@ int	main(int argc, char **argv)
  *	otherwise the elements count in stack a if 3 or less only exist.
  *
  * */
-static t_stacks	init_stacks(t_list **stack_a, t_list **stack_b, char **argv)
+void	init_stacks(t_stacks stacks)
 {
-	t_stacks	stacks;
 	size_t		stack_size;
 
-	*stack_a = get_list(argv+1);
-	*stack_b = NULL;
-	stacks.a = stack_a;
-	stacks.b = stack_b;
 
 	stack_size = ft_lstsize(*(stacks.a));
 	if (stack_size > 3)
@@ -50,7 +45,6 @@ static t_stacks	init_stacks(t_list **stack_a, t_list **stack_b, char **argv)
 			p(stacks.b, stacks.a, "b");
 	}
 	hard_sort(stacks.a);
-	return (stacks);
 }
 
 
@@ -73,3 +67,23 @@ static void	hard_sort(t_list **st_a)
 	}
 }
 
+void	examin_status(t_list **stack)
+{
+	t_list *work_stack = *stack;
+	int prev_val;
+
+	if(!work_stack)
+			exit(0);
+	prev_val = *(int *)(work_stack->content);
+	work_stack = work_stack->next;
+
+	while(work_stack)
+	{
+		if ( *(int *)(work_stack->content) < prev_val)
+			return;
+		prev_val = *(int *)(work_stack->content);
+		work_stack = work_stack->next;
+	}
+	ft_lstclear(stack, free);
+	exit(0);
+}
