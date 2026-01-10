@@ -54,18 +54,22 @@ static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
 		t_stack_len stack_len, size_t index)
 {
+	size_t new_cost;
+
 	optimise_rots(rot, stack_len);
-	if (rot->moves_a + rot->moves_b < cheapest_node->cost)
+	if (rot->rev_direct_a == rot->rev_direct_b)
 	{
-		cheapest_node->cost = rot->moves_a + rot->moves_b;
+		if (rot->moves_a > rot->moves_b)
+			new_cost = rot->moves_a;
+		else
+			new_cost = rot->moves_b;
+	}
+	else
+		new_cost = rot->moves_a + rot->moves_b;
+	if (new_cost < cheapest_node->cost)
+	{
+		cheapest_node->cost = new_cost;
 		cheapest_node->index = index;
-		if (rot->rev_direct_a == rot->rev_direct_b)
-		{
-			if (rot->moves_a > rot->moves_b)
-				cheapest_node->cost = rot->moves_a;
-			else
-				cheapest_node->cost = rot->moves_b;
-		}
 	}
 }
 
@@ -98,7 +102,7 @@ static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len)
  *	[Backward:]
 
 
-		*	Look for then apply instructions for the registered index with cheapest cost,
+ *	Look for then apply instructions for the registered index with cheapest cost,
  *	then update the "applied" flag.
  *
  * */
