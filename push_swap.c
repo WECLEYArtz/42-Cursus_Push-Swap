@@ -2,7 +2,6 @@
 #include "push_swap.h"
 
 void		init_stacks(t_stacks stacks);
-static void	hard_sort(t_list **st_a);
 static void	examin_status(t_list **stack);
 
 int	main(int argc, char **argv)
@@ -45,22 +44,6 @@ void	init_stacks(t_stacks stacks)
 	hard_sort(stacks.a);
 }
 
-static void	hard_sort(t_list **st_a)
-{
-	if (!(*st_a)->next)
-		return ;
-	if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
-		s(st_a, "a");
-	if (((*st_a)->next->next)
-		&& (*(int *)((*st_a)->next->content) > *(int *)((*st_a)->next->next->content)))
-	{
-		r(st_a, "a");
-		s(st_a, "a");
-		rr(st_a, "a");
-		if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
-			s(st_a, "a");
-	}
-}
 
 static void	examin_status(t_list **stack)
 {

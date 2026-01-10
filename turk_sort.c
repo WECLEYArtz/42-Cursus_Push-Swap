@@ -4,7 +4,6 @@
 static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len);
 static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 				t_stack_len stack_len);
-
 void	turk_sort(t_stacks stacks)
 {
 	t_stack_len	stack_len;
@@ -54,7 +53,7 @@ static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
 		t_stack_len stack_len, size_t index)
 {
-	size_t new_cost;
+	size_t	new_cost;
 
 	optimise_rots(rot, stack_len);
 	if (rot->rev_direct_a == rot->rev_direct_b)
@@ -102,7 +101,8 @@ static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len)
  *	[Backward:]
 
 
- *	Look for then apply instructions for the registered index with cheapest cost,
+
+		*	Look for then apply instructions for the registered index with cheapest cost,
  *	then update the "applied" flag.
  *
  * */
