@@ -97,7 +97,8 @@ static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len)
  *
  *	[Backward:]
 
- *	Look for then apply instructions for the registered index with cheapest cost,
+
+		*	Look for then apply instructions for the registered index with cheapest cost,
  *	then update the "applied" flag.
  *
  * */
