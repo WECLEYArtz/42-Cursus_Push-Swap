@@ -4,7 +4,7 @@
 static	void update_for_target(t_list **stack, t_cmp_vars *cmp);
 
 /*
- *	Lookup the best position for "target" int "stack",
+ *	Lookup the best position for "target" in "stack",
  *	Return the amount of rotations to get the value,
  *	(returns only for none reversed rotation)
  *
