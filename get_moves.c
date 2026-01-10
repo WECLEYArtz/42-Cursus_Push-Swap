@@ -14,11 +14,7 @@ size_t get_moves(t_list *stack_a, int target)
 	if(!stack_a || !(stack_a->content))
 		return 0;
 	t_cmp_vars cmps;
-	size_t result;
-	size_t moves;
 
-	moves = 0;
-	result = 0;
 	cmps = init_cmp_vars(*(int *)(stack_a->content), target);
 	while(stack_a)
 	{

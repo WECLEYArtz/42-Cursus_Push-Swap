@@ -67,7 +67,7 @@ static void	hard_sort(t_list **st_a)
 	}
 }
 
-void	examin_status(t_list **stack)
+static void	examin_status(t_list **stack)
 {
 	t_list *work_stack = *stack;
 	int prev_val;
