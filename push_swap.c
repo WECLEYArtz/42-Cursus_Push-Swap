@@ -1,63 +1,89 @@
-// ====[ DEBUGGERS ]====
-#include "push_swap.debuggers.h"
-// =====================
-#include "push_swap.h"
 #include "libft/libft.h"
-#include <unistd.h>
+#include "push_swap.h"
 
+void	init_stacks(t_stacks stacks);
+static void	hard_sort(t_list **st_a);
+static void	examin_status(t_list **stack);
 
-size_t get_moves_to_min(t_list *stack)
+int	main(int argc, char **argv)
 {
-	if(!stack || !(stack->content))
-		return 0;
-	size_t	moves;
-	size_t	ret_moves;
-	int		min = *(int *)(stack->content);
-	stack = stack->next;
-	moves = 1;
-	ret_moves = 0;
-	while(stack)
-	{
-		if(*(int *)(stack -> content) < min)
-		{
-			min = *(int *)(stack -> content);
-			ret_moves = moves;
-		}
-		stack = stack->next;
-		moves++;
-	}
-	return ret_moves;
+	t_list		*stack_a;
+	t_list		*stack_b;
+	t_stacks	stacks;
+
+	stack_a = get_list(argv+1);
+	stack_b = NULL;
+	stacks.a = &stack_a;
+	stacks.b = &stack_b;
+	if (argc < 2)
+		return (1);
+	examin_status(stacks.a);
+	init_stacks(stacks);
+	if (stack_b)
+		turk_sort(stacks);
+	ft_lstclear(stacks.a, free);
+	ft_lstclear(stacks.b, free);
 }
 
 
-int main(int argc, char **argv)
+/*	Takes stack a and b to to push everything from a to b.
+ *	Leaves 3 nodes in stack a.
+ *	Returns 0 if elements are pushed (if more than 3 nodes exist),
+ *	otherwise the elements count in stack a if 3 or less only exist.
+ *
+ * */
+void	init_stacks(t_stacks stacks)
 {
-	if(argc < 2)
-		return (0);
-	t_list *stack_a = get_list(argv+1);
-	t_list *stack_b = NULL;
-	size_t moves_to_max;
-	size_t stack_len;
+	size_t		stack_size;
 
-	stack_len = ft_lstsize(stack_a);
-	while(stack_len)
+
+	stack_size = ft_lstsize(*(stacks.a));
+	if (stack_size > 3)
 	{
-		// list_stacks(stack_a, stack_b);
-		moves_to_max = get_moves_to_min(stack_a);
-		if(moves_to_max < stack_len/2)
-			while(moves_to_max--)
-				rotate(&stack_a, "ra\n");
-		else
-		{
-			moves_to_max = stack_len - moves_to_max;
-			while(moves_to_max--)
-				rrotate(&stack_a, "rra\n");
-		}
-		push(&stack_b, &stack_a, "pb\n");
-		stack_len--;
+		stack_size -= 3;
+		while (stack_size--)
+			p(stacks.b, stacks.a, "b");
 	}
-	while(stack_b)
-		push(&stack_a, &stack_b, "pa\n");
-	// list_stacks(stack_a, stack_b);
-	ft_lstclear(&stack_a, free);
+	hard_sort(stacks.a);
+}
+
+
+static void	hard_sort(t_list **st_a)
+{
+	if(!(*st_a)->next)
+			return;
+	if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
+		s(st_a, "a");
+
+	if (((*st_a)->next->next) &&
+			(*(int *)((*st_a)->next->content)
+			 > *(int *)((*st_a)->next->next->content)))
+	{
+		r(st_a, "a");
+		s(st_a, "a");
+		rr(st_a, "a");
+		if (*(int *)((*st_a)->content) > *(int *)((*st_a)->next->content))
+			s(st_a, "a");
+	}
+}
+
+void	examin_status(t_list **stack)
+{
+	t_list *work_stack = *stack;
+	int prev_val;
+
+	if(!work_stack)
+			exit(0);
+	prev_val = *(int *)(work_stack->content);
+	work_stack = work_stack->next;
+
+	while(work_stack)
+	{
+		if ( *(int *)(work_stack->content) < prev_val)
+			return;
+		prev_val = *(int *)(work_stack->content);
+		work_stack = work_stack->next;
+	}
+	ft_lstclear(stack, free);
+	exit(0);
 }

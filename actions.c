@@ -1,18 +1,16 @@
 #include "push_swap.h"
-#include <stddef.h>
 
-void push(t_list **stack_dst_p, t_list **stack_src_p, char *act_name)
+void push(t_list **stack_dst_p, t_list **stack_src_p)
 {
 	if(!stack_src_p || !*stack_src_p)
 		return;
 	t_list *tmp = (*stack_src_p)->next;
 	ft_lstadd_front(stack_dst_p, *stack_src_p);
 	*stack_src_p = tmp;
-	write(1, act_name , 3);
 }
 
 
-void rotate(t_list **stack_p, char *act_name)
+void rotate(t_list **stack_p)
 {
 	if(!stack_p || !(*stack_p) || !(*stack_p)->next)
 		return;
@@ -21,11 +19,10 @@ void rotate(t_list **stack_p, char *act_name)
 	ft_lstadd_back(stack_p, *stack_p);
 	newback->next = NULL;
 	*stack_p = newhead;
-	write(1, act_name , 3);
 }
 
 
-void rrotate(t_list **stack_p, char *act_name)
+void revrotate(t_list **stack_p)
 {
 	if(!stack_p || !(*stack_p) || !(*stack_p)->next)
 		return;
@@ -42,6 +39,15 @@ void rrotate(t_list **stack_p, char *act_name)
 	last_node_depth1 -> next = NULL;
 	last_node -> next =  *stack_p;
 	*stack_p = last_node;
+}
 
-	write(1, act_name , 4);
+void swap(t_list **stack_p)
+{
+	if(!stack_p || !(*stack_p) || !(*stack_p)->next)
+		return;
+
+	t_list *tmp = *stack_p;
+	*stack_p = (*stack_p)->next;
+	tmp->next = (*stack_p)->next;
+	(*stack_p)->next = tmp;
 }
