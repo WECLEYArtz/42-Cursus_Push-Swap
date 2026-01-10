@@ -13,7 +13,8 @@ actions_caller.c\
 get_list.c\
 get_moves.c\
 push_swap.c\
-turk_sort.c
+turk_sort.c\
+final_sort.c
 
 OBJ = $(SRC:.c=.o)
 

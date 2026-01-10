@@ -2,11 +2,11 @@
 make the initial comparation values make more sense
 currently compares the first element with itself, safe but make no sense
 
+
 [ LINES ]
 get_moves_to_target.c:25
 get_moves_to_target.c:26
 
 
-
 [ OBJECTIVE ]
-Fix makefline not making archive when make called after deleting the .a file
+Fix Makefline not making archive when make called after deleting the .a file
