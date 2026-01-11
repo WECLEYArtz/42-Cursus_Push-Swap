@@ -21,6 +21,8 @@ void	hard_sort(t_list **stack_a)
 		return;
 	}
 	fill_arr(vals, *stack_a);
+	if (vals[0] < vals[1] && vals[1] < vals[2] && vals[0] < vals[2])
+		return;
 	if (vals[0] > vals[1] && vals[1] < vals[2] && vals[0] < vals[2])
 		s(stack_a, "a");
 	if (vals[0] > vals[1])
