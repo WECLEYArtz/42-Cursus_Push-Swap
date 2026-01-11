@@ -14,20 +14,24 @@ get_list.c\
 get_moves.c\
 push_swap.c\
 turk_sort.c\
-hard_sort.c\
 final_sort.c
 
 OBJ = $(SRC:.c=.o)
 
 all: $(BIN)
 
-$(BIN): $(NAME) $(LIBFT) 
+$(BIN): $(NAME) $(LIBFT)
+	@echo "\n[ Compiling... ]"
 	cc -o $(BIN) $^
 
-$(LIBFT):
+$(LIBFT) : Libft
+
+Libft : 
+	@echo "\n[ Upating Libft... ]"
 	make all bonus -C ./libft CC="cc -g3"
 
-$(NAME): $(OBJ)
+$(NAME):  $(OBJ) 
+	@echo "\n[ Updated Push_swap Archive  ]"
 
 %.o: %.c $(HDR)
 	$(CC) $(CFLAGS) $<
