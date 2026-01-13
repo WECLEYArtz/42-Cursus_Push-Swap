@@ -12,16 +12,19 @@ int	main(int argc, char **argv)
 
 	stack_a = get_list(argv + 1);
 	stack_b = NULL;
-	stacks.a = &stack_a;
-	stacks.b = &stack_b;
-	if (argc < 2)
-		return (1);
-	examin_status(stacks.a);
-	init_stacks(stacks);
-	if (stack_b)
-		turk_sort(stacks);
-	ft_lstclear(stacks.a, free);
-	ft_lstclear(stacks.b, free);
+	if(stack_a)
+	{
+		stacks.a = &stack_a;
+		stacks.b = &stack_b;
+		if (argc < 2)
+			return (1);
+		examin_status(stacks.a);
+		init_stacks(stacks);
+		if (stack_b)
+			turk_sort(stacks);
+	}
+	ft_lstclear(&stack_a, free);
+	ft_lstclear(&stack_b, free);
 }
 
 /*	Takes stack a and b to to push everything from a to b.

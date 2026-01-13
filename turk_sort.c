@@ -2,8 +2,12 @@
 #include "push_swap.h"
 
 static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len);
+static void	apply_instr(t_stacks stacks, t_mvs_rots rot);
 static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 				t_stack_len stack_len);
+static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
+				t_stack_len stack_len, size_t index);
+
 void	turk_sort(t_stacks stacks)
 {
 	t_stack_len	stack_len;
@@ -18,6 +22,47 @@ void	turk_sort(t_stacks stacks)
 		stack_len.b--;
 	}
 	final_sort(stacks.a, stack_len.a);
+}
+
+/*	[Forward:]
+ *
+ *	Recursively loop on each node in stack b
+
+ *	save the cost (instructions in stack a(moves) and b(index))
+ *	in order to place the current
+ *	node in b, in stack a, update the cheapest cost on the proccess.
+ *
+ *	[Backward:]
+ *	Find then apply instructions for the cheapest cost index,
+ *	then update the "applied" flag.
+ *
+ * */
+static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
+		t_stack_len stack_len)
+{
+	t_mvs_rots	rots;
+	static t_cheapest cheapest;
+
+	if (index == 0)
+	{
+		cheapest.index = 0;
+		cheapest.cost = LONG_MAX;
+		cheapest.applied = 0;
+	}
+	if (work_node)
+	{
+		rots.moves_a = get_moves(*stacks.a, *(int *)(work_node->content));
+		rots.moves_b = index;
+		update_cheapest(&cheapest, &rots, stack_len, index);
+		if (!cheapest.cost)
+			return ;
+		turk_rec(index + 1, stacks, work_node->next, stack_len);
+	}
+	if (cheapest.index == index && !cheapest.applied)
+	{
+		apply_instr(stacks, rots);
+		cheapest.applied = 1;
+	}
 }
 
 static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
@@ -88,50 +133,4 @@ static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len)
 	}
 	else
 		rot->rev_direct_b = 0;
-}
-
-/*	[Forward:]
- *
- *	Recursively loop on each node in stack b
-
- *	save the cost (instructions in stack a(moves) and b(index))
- *	in order to place the current
- *	node in b, in stack a, update the cheapest cost on the proccess.
- *
- *	[Backward:]
-
-
-
-		*	Look for then apply instructions for the registered index with cheapest cost,
- *	then update the "applied" flag.
- *
- * */
-static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
-		t_stack_len stack_len)
-{
-	t_mvs_rots	rots;
-
-	static t_cheapest cheapest; // allocate instaed,
-								// stack will keep wrong data,
-								// cant easielly reset
-	if (index == 0)
-	{
-		cheapest.index = 0;
-		cheapest.cost = LONG_MAX;
-		cheapest.applied = 0;
-	}
-	if (work_node)
-	{
-		rots.moves_a = get_moves(*stacks.a, *(int *)(work_node->content));
-		rots.moves_b = index;
-		update_cheapest(&cheapest, &rots, stack_len, index);
-		if (!cheapest.cost)
-			return ;
-		turk_rec(index + 1, stacks, work_node->next, stack_len);
-	}
-	if (cheapest.index == index && !cheapest.applied)
-	{
-		apply_instr(stacks, rots);
-		cheapest.applied = 1;
-	}
 }

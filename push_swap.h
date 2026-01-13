@@ -73,6 +73,7 @@ size_t		get_moves(t_list *stack_a, int target);
 // Helpers
 void		hard_sort(t_list **stack_a);
 void		final_sort(t_list **stack_a, size_t stack_len_a);
+
 // Hacky Helpers
 void		update_for_min(t_list **stack, t_cmp_vars *cmp);
 t_cmp_vars	init_cmp_vars(int min, int target);
