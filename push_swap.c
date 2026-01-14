@@ -1,62 +1,70 @@
+#include "libft/libft.h"
 #include "push_swap.h"
-#include <stdio.h>
-#include <unistd.h>
 
-void list_list(t_list *list)
+void		init_stacks(t_stacks stacks);
+static void	examin_status(t_list **stack);
+
+int	main(int argc, char **argv)
 {
-	while(list)
+	t_list		*stack_a;
+	t_list		*stack_b;
+	t_stacks	stacks;
+
+	stack_a = get_list(argv + 1);
+	stack_b = NULL;
+	if(stack_a)
 	{
-		printf("- %d\n",*(int *)(list->content));
-		list = list->next;
+		stacks.a = &stack_a;
+		stacks.b = &stack_b;
+		if (argc < 2)
+			return (1);
+		examin_status(stacks.a);
+		init_stacks(stacks);
+		if (stack_b)
+			turk_sort(stacks);
 	}
-}
-
-int main(int argc, char **argv)
-{
-	if(argc < 2)
-		return (0);
-	t_list *stack_a = get_list(argv+1);
-	t_list *stack_b = NULL;
-
-	// list_list(stack_a); // just show what we got.
-	// list_list(stack_b); // just show what we got.
-
-	while(1)
-	{
-		while(stack_a)
-		{
-			write(1, "\033cstack a >>>\n", 14);
-			list_list(stack_a); // just show what we got.
-			write(1, "stack b >>>\n", 12);
-			list_list(stack_b); // just show what we got.
-			getchar();
-			push(&stack_b, &stack_a, "pb\n");
-		}
-		while(stack_b)
-		{
-			write(1, "\033cstack b >>>\n", 14);
-			list_list(stack_b); // just show what we got.
-			write(1, "stack a >>>\n", 12);
-			list_list(stack_a); // just show what we got.
-			getchar();
-			push(&stack_a, &stack_b, "pa\n");
-		}
-	}
-	// rotate(&stack_a,"ra\n");
-
 	ft_lstclear(&stack_a, free);
+	ft_lstclear(&stack_b, free);
+}
+
+/*	Takes stack a and b to to push everything from a to b.
+ *	Leaves 3 nodes in stack a.
+ *	Returns 0 if elements are pushed (if more than 3 nodes exist),
+ *	otherwise the elements count in stack a if 3 or less only exist.
+ *
+ * */
+void	init_stacks(t_stacks stacks)
+{
+	size_t	stack_size;
+
+	stack_size = ft_lstsize(*(stacks.a));
+	if (stack_size > 3)
+	{
+		stack_size -= 3;
+		while (stack_size--)
+			p(stacks.b, stacks.a, "b");
+	}
+	hard_sort(stacks.a);
 }
 
 
-//p *((int *)(headnode->content) )
+static void	examin_status(t_list **stack)
+{
+	t_list	*work_stack;
+	int		prev_val;
 
-
-
-
-// ./push 0 1 2 3 4 "111 222 333 444" 99 102 3
-//
-// iterate on every argv,
-//  - if has no space: put its atoi on stack
-//  - if has space: split to an array, itterate and add atoi to stack
-//
-// current ft_lstnew makes a new shit list, content has pointer to variable
+	work_stack = *stack;
+	if (!work_stack)
+		exit(0);
+	prev_val = *(int *)(work_stack->content);
+	work_stack = work_stack->next;
+	while (work_stack)
+	{
+		if (*(int *)(work_stack->content) < prev_val)
+			return ;
+		prev_val = *(int *)(work_stack->content);
+		work_stack = work_stack->next;
+	}
+	ft_lstclear(stack, free);
+	exit(0);
+}
