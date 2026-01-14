@@ -1,4 +1,5 @@
 #include "./libft/libft.h"
+#include "push_swap.h"
 #include <stdlib.h>
 
 static short node_exists(t_list *stack_a, int value)
@@ -68,6 +69,8 @@ static	short parse_argument(t_list **new, t_list **stack_a,  char **argv, short*
 		if(node_exists(*stack_a, *(int *)(*new)->content))
 			return(*valid = 0, 0);
 		ft_lstadd_back(stack_a, *new);
+		if(!((*argv)[i] == ' ' || (*argv)[i] == '\0'))
+			return(*valid = 0, 0);
 	}
 	return 0;
 }
