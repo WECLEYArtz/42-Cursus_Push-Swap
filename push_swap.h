@@ -71,7 +71,7 @@ t_list		*get_list(char **argv);
 size_t		get_moves(t_list *stack_a, int target);
 
 // Helpers
-int			ft_atoi_check(const char *str, short *overflowed);
+int			ft_atoi_custom(char **argv, short *success);
 void		hard_sort(t_list **stack_a);
 void		final_sort(t_list **stack_a, size_t stack_len_a);
 
