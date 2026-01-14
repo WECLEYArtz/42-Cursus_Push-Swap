@@ -43,6 +43,7 @@ push_swap
 *.su
 *.idb
 *.pdb
+failed.txt
 log*
 checker_linux
 checker_macos
