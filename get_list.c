@@ -46,7 +46,7 @@ static t_list	*int_to_node(char *str, short *valid)
 	return (ft_lstnew(integer));
 }
 
-static	short parse_argument(t_list **new, t_list *stack_a,  char **argv, short* valid)
+static	short parse_argument(t_list **new, t_list **stack_a,  char **argv, short* valid)
 {
 	size_t		i;
 
@@ -63,11 +63,11 @@ static	short parse_argument(t_list **new, t_list *stack_a,  char **argv, short* 
 		if(!ft_isdigit((*argv)[i]))
 			if(((*argv)[i] != '-' && (*argv)[i] != '+')  && !ft_isdigit((*argv)[i+1]))
 				return(*valid = 0, 0);
-		*new = int_to_node( ft_substr(*argv, i, count_digits(*argv, &i)),
+		*new = int_to_node( ft_substr(*argv, i, count_digits(&(*argv)[i], &i)),
 				valid);
-		if(node_exists(stack_a, *(int *)(*new)->content))
+		if(node_exists(*stack_a, *(int *)(*new)->content))
 			return(*valid = 0, 0);
-		ft_lstadd_back(&stack_a, *new);
+		ft_lstadd_back(stack_a, *new);
 	}
 	return 0;
 }
@@ -87,7 +87,7 @@ t_list	*get_list(char **argv)
 			valid = 0;
 			break;
 		}
-		parse_argument(&new , stack_a, argv, &valid);
+		parse_argument(&new , &stack_a, argv, &valid);
 		argv++;
 	}
 	if(!valid)
