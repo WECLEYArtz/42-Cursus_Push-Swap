@@ -1,53 +1,75 @@
 #include "./libft/libft.h"
+#include "push_swap.h"
 #include <stdlib.h>
 
-static void	*free_str_arr(char **strs_arr)
+static short	node_dup(t_list *stack_a, int value)
 {
-	unsigned int	i;
-
-	i = 0;
-	if (!strs_arr)
-		return (NULL);
-	while (strs_arr[i])
-		free(strs_arr[i++]);
-	free(strs_arr);
-	return (NULL);
+	while (stack_a)
+	{
+		if (*(int *)stack_a->content == value)
+			return (1);
+		stack_a = stack_a->next;
+	}
+	return (0);
 }
 
-static void	*add_int_node(char *str)
+/*
+ * allocate for an integer to be the new node's content
+ * */
+static t_list	*int_to_node(char **argv, short *valid)
 {
 	int	*integer;
 
 	integer = malloc(sizeof(int));
 	if (!integer)
 		return (NULL);
-	*integer = ft_atoi(str);
+	*integer = ft_atoi_custom(argv, valid);
 	return (ft_lstnew(integer));
-	;
+}
+
+static short	parse_argument(t_list **stack_a, char **argv, short *valid)
+{
+	t_list	*new;
+
+	while (**argv)
+	{
+		*valid = 0;
+		if (**argv == ' ')
+		{
+			(*argv)++;
+			continue ;
+		}
+		if (**argv == '\0')
+			return (0);
+		if (ft_isdigit(**argv) || **argv == '-' || **argv == '+')
+			new = int_to_node(argv, valid);
+		if (*valid == 0 || node_dup(*stack_a, *(int *)(new)->content))
+			return (*valid = 0, 0);
+		ft_lstadd_back(stack_a, new);
+	}
+	return (0);
 }
 
 t_list	*get_list(char **argv)
 {
-	int		i;
-	t_list	*headnode;
-	char	**tmp;
+	t_list	*stack_a;
+	short	valid;
 
-	headnode = NULL;
-	while (*argv)
+	valid = 1;
+	stack_a = NULL;
+	while (valid && *argv)
 	{
-		if (ft_strchr(*argv, ' '))
-		{
-			tmp = ft_split(*argv, ' ');
-			i = 0;
-			while (tmp[i])
-				ft_lstadd_back(&headnode, add_int_node(tmp[i++]));
-			tmp = free_str_arr(tmp);
-		}
-		else
-			ft_lstadd_back(&headnode, add_int_node(*argv));
-		if (!headnode)
-			return (NULL);
+		valid = 0;
+		if (**argv == '\0')
+			break ;
+		parse_argument(&stack_a, argv, &valid);
 		argv++;
 	}
-	return (headnode);
+	if (!valid)
+	{
+		ft_lstclear(&stack_a, free);
+		write(2, "Error\n", 6);
+		exit(1);
+	}
+	return (stack_a);
 }

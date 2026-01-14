@@ -27,3 +27,8 @@ define disprec
 end
 
 
+define parser
+	display *valid
+	display *argv
+	display *(int *)(* new)->content
+end

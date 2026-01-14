@@ -10,6 +10,7 @@ LIBFT = libft/libft.a
 SRC =\
 actions.c\
 actions_caller.c\
+ft_atoi_custom.c\
 get_list.c\
 get_moves.c\
 push_swap.c\
