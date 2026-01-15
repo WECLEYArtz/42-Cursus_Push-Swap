@@ -2,7 +2,7 @@
 #include "push_swap.h"
 
 static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len);
-static void	apply_instr(t_stacks stacks, t_mvs_rots rot);
+static void	instr_applyer(t_stacks stacks, t_mvs_rots rot);
 static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 				t_stack_len stack_len);
 static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
@@ -40,8 +40,8 @@ void	turk_sort(t_stacks stacks)
 static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 		t_stack_len stack_len)
 {
-	t_mvs_rots	rots;
-	static t_cheapest cheapest;
+	t_mvs_rots			rots;
+	static t_cheapest	cheapest;
 
 	if (index == 0)
 	{
@@ -60,40 +60,42 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 	}
 	if (cheapest.index == index && !cheapest.applied)
 	{
-		apply_instr(stacks, rots);
+		instr_applyer(stacks, rots);
 		cheapest.applied = 1;
 	}
 }
 
-static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
+static	void	apply_instr(t_stacks stacks, t_mvs_rots *rot,
+		void f(t_stacks stacks))
 {
-	void	(*rotfunc[2])(t_list * *stack_p, char *act_name);
+	while (rot->moves_a && rot->moves_b)
+	{
+		f(stacks);
+		rot->moves_a--;
+		rot->moves_b--;
+	}
+}
+
+static void	instr_applyer(t_stacks stacks, t_mvs_rots rot)
+{
+	void	(*rotfunc[2])(t_list **stack_p, char *act_name);
 
 	rotfunc[0] = r;
 	rotfunc[1] = rr;
 	if (rot.rev_direct_a && rot.rev_direct_b)
 	{
-		while (rot.moves_a && rot.moves_b)
-		{
-			rrr_(stacks);
-			rot.moves_a--;
-			rot.moves_b--;
-		}
+		apply_instr(stacks, &rot, rrr_);
 	}
 	else if (!rot.rev_direct_a && !rot.rev_direct_b)
 	{
-		while (rot.moves_a && rot.moves_b)
-		{
-			rr__(stacks);
-			rot.moves_a--;
-			rot.moves_b--;
-		}
+		apply_instr(stacks, &rot, rr__);
 	}
 	while (rot.moves_a--)
 		rotfunc[rot.rev_direct_a](stacks.a, "a");
 	while (rot.moves_b--)
 		rotfunc[rot.rev_direct_b](stacks.b, "b");
 }
+
 
 static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
 		t_stack_len stack_len, size_t index)
