@@ -1,27 +1,68 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len);
-static void	instr_applyer(t_stacks stacks, t_mvs_rots rot);
-static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
-				t_stack_len stack_len);
-static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
-				t_stack_len stack_len, size_t index);
-
-void	turk_sort(t_stacks stacks)
+static short	optimise_rots(size_t *moves, size_t stack_len)
 {
-	t_stack_len	stack_len;
-
-	stack_len.a = ft_lstsize(*stacks.a);
-	stack_len.b = ft_lstsize(*stacks.b);
-	while (*stacks.b)
+	if (*moves > stack_len / 2)
 	{
-		turk_rec(0, stacks, *stacks.b, stack_len);
-		p(stacks.a, stacks.b, "a");
-		stack_len.a++;
-		stack_len.b--;
+		*moves = stack_len - *moves;
+		return (1);
 	}
-	final_sort(stacks.a, stack_len.a);
+	return (0);
+}
+
+static void	apply_mutual_rots(t_stacks stacks, t_mvs_rots *rot,
+		void f(t_stacks stacks))
+{
+	while (rot->moves_a && rot->moves_b)
+	{
+		f(stacks);
+		rot->moves_a--;
+		rot->moves_b--;
+	}
+}
+
+static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
+{
+	void	(*rotfunc[2])(t_list * *stack_p, char *act_name);
+
+	rotfunc[0] = r;
+	rotfunc[1] = rr;
+	if (rot.rev_direct_a && rot.rev_direct_b)
+	{
+		apply_mutual_rots(stacks, &rot, rrr_);
+	}
+	else if (!rot.rev_direct_a && !rot.rev_direct_b)
+	{
+		apply_mutual_rots(stacks, &rot, rr__);
+	}
+	while (rot.moves_a--)
+		rotfunc[rot.rev_direct_a](stacks.a, "a");
+	while (rot.moves_b--)
+		rotfunc[rot.rev_direct_b](stacks.b, "b");
+}
+
+static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
+		t_stack_len stack_len, size_t index)
+{
+	size_t	new_cost;
+
+	rot->rev_direct_a = optimise_rots(&(rot->moves_a), stack_len.a);
+	rot->rev_direct_b = optimise_rots(&(rot->moves_b), stack_len.b);
+	if (rot->rev_direct_a == rot->rev_direct_b)
+	{
+		if (rot->moves_a > rot->moves_b)
+			new_cost = rot->moves_a;
+		else
+			new_cost = rot->moves_b;
+	}
+	else
+		new_cost = rot->moves_a + rot->moves_b;
+	if (new_cost < cheapest_node->cost)
+	{
+		cheapest_node->cost = new_cost;
+		cheapest_node->index = index;
+	}
 }
 
 /*	[Forward:]
@@ -60,79 +101,23 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 	}
 	if (cheapest.index == index && !cheapest.applied)
 	{
-		instr_applyer(stacks, rots);
+		apply_instr(stacks, rots);
 		cheapest.applied = 1;
 	}
 }
 
-static	void	apply_instr(t_stacks stacks, t_mvs_rots *rot,
-		void f(t_stacks stacks))
+void	turk_sort(t_stacks stacks)
 {
-	while (rot->moves_a && rot->moves_b)
-	{
-		f(stacks);
-		rot->moves_a--;
-		rot->moves_b--;
-	}
-}
+	t_stack_len	stack_len;
 
-static void	instr_applyer(t_stacks stacks, t_mvs_rots rot)
-{
-	void	(*rotfunc[2])(t_list **stack_p, char *act_name);
-
-	rotfunc[0] = r;
-	rotfunc[1] = rr;
-	if (rot.rev_direct_a && rot.rev_direct_b)
+	stack_len.a = ft_lstsize(*stacks.a);
+	stack_len.b = ft_lstsize(*stacks.b);
+	while (*stacks.b)
 	{
-		apply_instr(stacks, &rot, rrr_);
+		turk_rec(0, stacks, *stacks.b, stack_len);
+		p(stacks.a, stacks.b, "a");
+		stack_len.a++;
+		stack_len.b--;
 	}
-	else if (!rot.rev_direct_a && !rot.rev_direct_b)
-	{
-		apply_instr(stacks, &rot, rr__);
-	}
-	while (rot.moves_a--)
-		rotfunc[rot.rev_direct_a](stacks.a, "a");
-	while (rot.moves_b--)
-		rotfunc[rot.rev_direct_b](stacks.b, "b");
-}
-
-
-static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
-		t_stack_len stack_len, size_t index)
-{
-	size_t	new_cost;
-
-	optimise_rots(rot, stack_len);
-	if (rot->rev_direct_a == rot->rev_direct_b)
-	{
-		if (rot->moves_a > rot->moves_b)
-			new_cost = rot->moves_a;
-		else
-			new_cost = rot->moves_b;
-	}
-	else
-		new_cost = rot->moves_a + rot->moves_b;
-	if (new_cost < cheapest_node->cost)
-	{
-		cheapest_node->cost = new_cost;
-		cheapest_node->index = index;
-	}
-}
-
-static void	optimise_rots(t_mvs_rots *rot, t_stack_len stack_len)
-{
-	if (rot->moves_a > stack_len.a / 2)
-	{
-		rot->moves_a = stack_len.a - rot->moves_a;
-		rot->rev_direct_a = 1;
-	}
-	else
-		rot->rev_direct_a = 0;
-	if (rot->moves_b > stack_len.b / 2)
-	{
-		rot->moves_b = stack_len.b - rot->moves_b;
-		rot->rev_direct_b = 1;
-	}
-	else
-		rot->rev_direct_b = 0;
+	final_sort(stacks.a, stack_len.a);
 }
