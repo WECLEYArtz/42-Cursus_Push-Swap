@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   turk_sort.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
+/*   Updated: 2026/01/15 23:05:25 by ahmounsi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "push_swap.h"
 
@@ -92,7 +104,7 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 	}
 	if (work_node)
 	{
-		rots.moves_a = get_moves(*stacks.a, *(int *)(work_node->content));
+		rots.moves_a = get_target_moves(*stacks.a, *(int *)(work_node->content));
 		rots.moves_b = index;
 		update_cheapest(&cheapest, &rots, stack_len, index);
 		if (!cheapest.cost)

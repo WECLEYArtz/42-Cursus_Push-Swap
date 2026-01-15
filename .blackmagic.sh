@@ -1,7 +1,8 @@
+MAX=5500;
+
 TEST=0
 RES=0;
 CHECKER=0;
-MAX=5500;
 COUNT=0
 
 while true;

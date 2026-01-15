@@ -68,15 +68,14 @@ void		swap(t_list **stack_p);
 
 // Getters
 t_list		*get_list(char **argv);
-size_t		get_moves(t_list *stack_a, int target);
+size_t		get_target_moves(t_list *stack_a, int target);
 
 // Helpers
-int			ft_atoi_custom(char **argv, short *success);
+void		init_stacks(t_stacks stacks);
+void		examin_status(t_list **stack);
 void		hard_sort(t_list **stack_a);
 void		final_sort(t_list **stack_a, size_t stack_len_a);
-
-// Hacky Helpers
-void		update_for_min(t_list **stack, t_cmp_vars *cmp);
-t_cmp_vars	init_cmp_vars(int min, int target);
+int			ft_atoi_custom(char **argv, short *success);
+size_t		get_moves_break(t_list *stack_a);
 
 #endif

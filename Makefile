@@ -10,13 +10,16 @@ LIBFT = libft/libft.a
 SRC =\
 actions.c\
 actions_caller.c\
+checker_bonus.c\
+examin_status.c\
+final_sort.c\
 ft_atoi_custom.c\
 get_list.c\
-get_moves.c\
-push_swap.c\
-turk_sort.c\
+get_target_moves.c\
 hard_sort.c\
-final_sort.c
+init_stack.c\
+push_swap.c\
+turk_sort.c
 
 OBJ = $(SRC:.c=.o)
 

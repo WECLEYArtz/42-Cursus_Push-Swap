@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions_caller.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
+/*   Updated: 2026/01/15 23:05:25 by ahmounsi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 const short	silent = 0;
@@ -35,17 +47,6 @@ void	rr(t_list **stack_p, char *stack_name)
 	}
 }
 
-void	s(t_list **stack_p, char *stack_name)
-{
-	swap(stack_p);
-	if (!silent)
-	{
-		write(1, "s", 1);
-		write(1, stack_name, 1);
-		write(1, "\n", 1);
-	}
-}
-
 void	rr__(t_stacks stacks)
 {
 	rotate(stacks.a);
@@ -60,4 +61,24 @@ void	rrr_(t_stacks stacks)
 	revrotate(stacks.b);
 	if (!silent)
 		write(1, "rrr\n", 4);
+}
+
+
+void	s(t_list **stack_p, char *stack_name)
+{
+	swap(stack_p);
+	if (!silent)
+	{
+		write(1, "s", 1);
+		write(1, stack_name, 1);
+		write(1, "\n", 1);
+	}
+}
+
+void	ss_(t_stacks stacks)
+{
+	swap(stacks.a);
+	swap(stacks.b);
+	if (!silent)
+		write(1, "ss\n", 3);
 }
