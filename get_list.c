@@ -33,7 +33,6 @@ static short	parse_argument(t_list **stack_a, char **argv, short *valid)
 
 	while (**argv)
 	{
-		*valid = 0;
 		if (**argv == ' ')
 		{
 			(*argv)++;
