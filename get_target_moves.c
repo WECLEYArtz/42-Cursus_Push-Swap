@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_moves.c                                        :+:      :+:    :+:   */
+/*   get_target_moves.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:05:25 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/15 23:48:30 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "push_swap.h"
-
 
 t_cmp_vars	init_cmp_vars(int min, int target)
 {
@@ -25,7 +24,7 @@ t_cmp_vars	init_cmp_vars(int min, int target)
 	return (cmp);
 }
 
-static	void	update_for_min(t_list **stack, t_cmp_vars *cmp)
+static void	update_for_min(t_list **stack, t_cmp_vars *cmp)
 {
 	int	value;
 

@@ -6,7 +6,7 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 17:30:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:05:25 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/15 23:48:30 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ static long	ft_atoi_convert(char **argv, short sign, short *success)
 		else
 			result = (result * 10) + (*(*argv)++ - '0');
 	}
-	if (**argv ==  ' ' ||  **argv ==  '\0')
+	if (**argv == ' ' || **argv == '\0')
 		*success = 1;
 	return (result);
-		
 }
 
 int	ft_atoi_custom(char **argv, short *success)

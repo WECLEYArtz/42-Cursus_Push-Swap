@@ -6,7 +6,7 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:05:25 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/15 23:48:30 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	rrr_(t_stacks stacks)
 	if (!silent)
 		write(1, "rrr\n", 4);
 }
-
 
 void	s(t_list **stack_p, char *stack_name)
 {

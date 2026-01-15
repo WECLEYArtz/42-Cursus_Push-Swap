@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_stack.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/15 23:49:24 by ahmounsi          #+#    #+#             */
+/*   Updated: 2026/01/15 23:49:25 by ahmounsi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "push_swap.h"
 
@@ -25,7 +37,7 @@ void	init_stacks(t_stacks stacks)
 			stack_size--;
 			if (*(int *)(*stacks.b)->content > *(int *)((*stacks.b)->next->content))
 				new_big = *(int *)((*stacks.b)->next->content);
-			else if(*(int *)(*stacks.b)->content < new_big / 2)
+			else if (*(int *)(*stacks.b)->content < new_big / 2)
 				r(stacks.b, "b");
 		}
 	}

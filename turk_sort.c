@@ -6,7 +6,7 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:05:25 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/15 23:51:05 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	apply_mutual_rots(t_stacks stacks, t_mvs_rots *rot,
 
 static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 {
-	void	(*rotfunc[2])(t_list * *stack_p, char *act_name);
+	void	(*rotfunc[2])(t_list **stack_p, char *act_name);
 
 	rotfunc[0] = r;
 	rotfunc[1] = rr;
@@ -77,19 +77,6 @@ static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
 	}
 }
 
-/*	[Forward:]
- *
- *	Recursively loop on each node in stack b
-
- *	save the cost (instructions in stack a(moves) and b(index))
- *	in order to place the current
- *	node in b, in stack a, update the cheapest cost on the proccess.
- *
- *	[Backward:]
- *	Find then apply instructions for the cheapest cost index,
- *	then update the "applied" flag.
- *
- * */
 static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 		t_stack_len stack_len)
 {
@@ -104,7 +91,8 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 	}
 	if (work_node)
 	{
-		rots.moves_a = get_target_moves(*stacks.a, *(int *)(work_node->content));
+		rots.moves_a = get_target_moves(*stacks.a,
+				*(int *)(work_node->content));
 		rots.moves_b = index;
 		update_cheapest(&cheapest, &rots, stack_len, index);
 		if (!cheapest.cost)
