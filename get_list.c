@@ -54,6 +54,11 @@ static short	parse_argument(t_list **stack_a, char **argv, short *valid)
 			return (0);
 		if (ft_isdigit(**argv) || **argv == '-' || **argv == '+')
 			new = int_to_node(argv, valid);
+		if(!new)
+		{
+			ft_lstclear(stack_a, free);
+			exit(1);
+		}
 		if (*valid == 0 || node_dup(*stack_a, *(int *)(new)->content))
 			return (*valid = 0, 0);
 		ft_lstadd_back(stack_a, new);
