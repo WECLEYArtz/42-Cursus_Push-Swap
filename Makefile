@@ -3,14 +3,17 @@ CC = cc -g3
 CFLAGS = -c -Werror -Wall -Wextra
 AR = ar rcs
 BIN = push_swap
+BIN_B = checker
 
 NAME = push_swap.a
 LIBFT = libft/libft.a
 
+SRC_B =\
+checker_bonus.c
+
 SRC =\
 actions.c\
 actions_caller.c\
-checker_bonus.c\
 examin_status.c\
 final_sort.c\
 ft_atoi_custom.c\
@@ -25,9 +28,14 @@ OBJ = $(SRC:.c=.o)
 
 all: $(BIN)
 
+bonus: $(BIN_B)
+
 $(BIN): $(NAME) $(LIBFT)
 	@echo "\n[ Compiling... ]"
 	cc -o $(BIN) $^
+
+$(BIN_B):
+	@echo "No bonus made yet (wip)"
 
 $(LIBFT) : Libft
 

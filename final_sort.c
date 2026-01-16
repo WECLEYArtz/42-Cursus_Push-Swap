@@ -13,13 +13,32 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
+static size_t	get_moves_break(t_list *stack_a)
+{
+	int		last_val;
+	size_t	moves;
+
+	last_val = *(int *)(stack_a->content);
+	stack_a = stack_a->next;
+	moves = 1;
+	while (stack_a)
+	{
+		if (last_val > *(int *)(stack_a->content))
+			return (moves);
+		last_val = *(int *)(stack_a->content);
+		stack_a = stack_a->next;
+		moves++;
+	}
+	return (0);
+}
+
 void	final_sort(t_list **stack_a, size_t stack_len_a)
 {
 	t_list	*work_node;
 	size_t	moves;
 
-	moves = get_moves_break(*stack_a);
 	work_node = *stack_a;
+	moves = get_moves_break(*stack_a);
 	if (moves > stack_len_a / 2)
 	{
 		moves = stack_len_a - moves;
@@ -29,23 +48,4 @@ void	final_sort(t_list **stack_a, size_t stack_len_a)
 	else
 		while (moves--)
 			r(stack_a, "a");
-}
-
-size_t	get_moves_break(t_list *stack_a)
-{
-	int		old_value;
-	size_t	moves;
-
-	old_value = *(int *)(stack_a->content);
-	stack_a = stack_a->next;
-	moves = 1;
-	while (stack_a)
-	{
-		if (old_value > *(int *)(stack_a->content))
-			return (moves);
-		old_value = *(int *)(stack_a->content);
-		stack_a = stack_a->next;
-		moves++;
-	}
-	return (0);
 }

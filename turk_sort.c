@@ -49,9 +49,13 @@ static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 		apply_mutual_rots(stacks, &rot, rr__);
 	}
 	while (rot.moves_a--)
+	{
 		rotfunc[rot.rev_direct_a](stacks.a, "a");
+	}
 	while (rot.moves_b--)
+	{
 		rotfunc[rot.rev_direct_b](stacks.b, "b");
+	}
 }
 
 static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
@@ -77,8 +81,8 @@ static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
 	}
 }
 
-static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
-		t_stack_len stack_len)
+static void	turk_rec( t_stacks stacks, t_stack_len stack_len,
+		t_list *work_node, size_t index)
 {
 	t_mvs_rots			rots;
 	static t_cheapest	cheapest;
@@ -97,7 +101,7 @@ static void	turk_rec(size_t index, t_stacks stacks, t_list *work_node,
 		update_cheapest(&cheapest, &rots, stack_len, index);
 		if (!cheapest.cost)
 			return ;
-		turk_rec(index + 1, stacks, work_node->next, stack_len);
+		turk_rec(stacks, stack_len, work_node->next, index + 1);
 	}
 	if (cheapest.index == index && !cheapest.applied)
 	{
@@ -114,7 +118,7 @@ void	turk_sort(t_stacks stacks)
 	stack_len.b = ft_lstsize(*stacks.b);
 	while (*stacks.b)
 	{
-		turk_rec(0, stacks, *stacks.b, stack_len);
+		turk_rec(stacks, stack_len, *stacks.b, 0);
 		p(stacks.a, stacks.b, "a");
 		stack_len.a++;
 		stack_len.b--;

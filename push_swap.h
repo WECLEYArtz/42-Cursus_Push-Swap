@@ -88,6 +88,5 @@ void		examin_status(t_list **stack);
 void		hard_sort(t_list **stack_a);
 void		final_sort(t_list **stack_a, size_t stack_len_a);
 int			ft_atoi_custom(char **argv, short *success);
-size_t		get_moves_break(t_list *stack_a);
 
 #endif
