@@ -47,6 +47,17 @@ void	rr(t_list **stack_p, char *stack_name)
 	}
 }
 
+void	s(t_list **stack_p, char *stack_name)
+{
+	swap(stack_p);
+	if (!silent)
+	{
+		write(1, "s", 1);
+		write(1, stack_name, 1);
+		write(1, "\n", 1);
+	}
+}
+
 void	rr__(t_stacks stacks)
 {
 	rotate(stacks.a);
@@ -63,16 +74,6 @@ void	rrr_(t_stacks stacks)
 		write(1, "rrr\n", 4);
 }
 
-void	s(t_list **stack_p, char *stack_name)
-{
-	swap(stack_p);
-	if (!silent)
-	{
-		write(1, "s", 1);
-		write(1, stack_name, 1);
-		write(1, "\n", 1);
-	}
-}
 
 void	ss_(t_stacks stacks)
 {

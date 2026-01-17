@@ -25,6 +25,7 @@ push_swap.c\
 turk_sort.c
 
 OBJ = $(SRC:.c=.o)
+OBJ_B = $(SRC_B:.c=.o)
 
 all: $(BIN)
 

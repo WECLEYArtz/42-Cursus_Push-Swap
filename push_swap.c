@@ -33,7 +33,8 @@ int	main(int argc, char **argv)
 		stacks.b = &stack_b;
 		if (argc < 2)
 			return (1);
-		examin_status(stacks.a);
+		if(examin_status(stacks.a))
+			return(0);
 		init_stacks(stacks);
 		if (stack_b)
 			turk_sort(stacks);
