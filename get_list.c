@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
 #include "push_swap.h"
 #include <stdlib.h>
 
@@ -39,7 +38,7 @@ static t_list	*int_to_node(char **argv, short *valid)
 	return (ft_lstnew(integer));
 }
 
-static short	parse_argument(t_list **stack_a, char **argv, short *valid)
+static void	parse_argument(t_list **stack_a, char **argv, short *valid)
 {
 	t_list	*new;
 
@@ -51,7 +50,7 @@ static short	parse_argument(t_list **stack_a, char **argv, short *valid)
 			continue ;
 		}
 		if (**argv == '\0')
-			return (0);
+			return;
 		if (ft_isdigit(**argv) || **argv == '-' || **argv == '+')
 			new = int_to_node(argv, valid);
 		if(!new)
@@ -60,10 +59,12 @@ static short	parse_argument(t_list **stack_a, char **argv, short *valid)
 			exit(1);
 		}
 		if (*valid == 0 || node_dup(*stack_a, *(int *)(new)->content))
-			return (*valid = 0, 0);
+		{
+			*valid = 0;
+			return;
+		}
 		ft_lstadd_back(stack_a, new);
 	}
-	return (0);
 }
 
 t_list	*get_list(char **argv)

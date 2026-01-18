@@ -6,11 +6,10 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:51:05 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:16:38 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
 
 static short	optimise_rots(size_t *moves, size_t stack_len)

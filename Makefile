@@ -4,12 +4,8 @@ CFLAGS = -Werror -Wall -Wextra
 AR = ar rcs
 
 
-
-
 NAME = push_swap.a
 LIBFT = libft/libft.a
-
-
 
 
 BIN = push_swap
@@ -17,6 +13,7 @@ BIN_B = checker_bonus
 
 SRC_MAIN	= push_swap.c
 SRC_MAIN_B	= checker_bonus.c
+
 
 SRC =\
 actions.c\
@@ -29,8 +26,6 @@ get_target_moves.c\
 hard_sort.c\
 init_stack.c\
 turk_sort.c
-
-
 
 
 OBJ = $(SRC:.c=.o)

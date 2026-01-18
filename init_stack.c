@@ -6,11 +6,10 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:49:24 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:49:25 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:16:26 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
 
 void	init_stacks(t_stacks stacks)
