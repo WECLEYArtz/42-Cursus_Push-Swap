@@ -1,15 +1,22 @@
 HDR = push_swap.h
 CC = cc -g3
-CFLAGS = -c -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra
 AR = ar rcs
-BIN = push_swap
-BIN_B = checker
+
+
+
 
 NAME = push_swap.a
 LIBFT = libft/libft.a
 
-SRC_B =\
-checker_bonus.c
+
+
+
+BIN = push_swap
+BIN_B = checker_bonus
+
+SRC_MAIN	= push_swap.c
+SRC_MAIN_B	= checker_bonus.c
 
 SRC =\
 actions.c\
@@ -21,22 +28,25 @@ get_list.c\
 get_target_moves.c\
 hard_sort.c\
 init_stack.c\
-push_swap.c\
 turk_sort.c
 
+
+
+
 OBJ = $(SRC:.c=.o)
-OBJ_B = $(SRC_B:.c=.o)
+OBJ_MAIN_B = $(SRC_MAIN_B:.c=.o)
 
 all: $(BIN)
 
 bonus: $(BIN_B)
 
-$(BIN): $(NAME) $(LIBFT)
+$(BIN): $(SRC_MAIN) $(NAME) $(LIBFT)
 	@echo "\n[ Compiling... ]"
-	cc -o $(BIN) $^
+	$(CC) $(CFLAGS) -o $(BIN) $^
 
-$(BIN_B):
-	@echo "No bonus made yet (wip)"
+$(BIN_B): $(SRC_MAIN_B) $(NAME) $(LIBFT)
+	@echo "\n[ Compiling bonus... ]"
+	$(CC) $(CFLAGS) -o $(BIN_B) $^
 
 $(LIBFT) : Libft
 
@@ -45,18 +55,18 @@ Libft :
 	make all bonus -C ./libft CC="cc -g3"
 
 $(NAME):  $(OBJ) 
-	@echo "\n[ Updated Push_swap Archive  ]"
+	@echo "\n[ Updated Push_swap Archive ]"
 
 %.o: %.c $(HDR)
-	$(CC) $(CFLAGS) $<
+	$(CC) -c $(CFLAGS) $<
 	$(AR) $(NAME) $@
 
 clean: 
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(OBJ_MAIN_B)
 	make clean -C ./libft
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(BIN) $(BIN_B) $(NAME) $(LIBFT)
 	make fclean -C ./libft
 
 re: fclean all
