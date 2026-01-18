@@ -114,6 +114,6 @@ int	main(int argc, char **argv)
 	apply_inputs(stacks, &instr_list);
 	if (examin_status(&stack_a))
 		write(2, "OK\n", 3);
-	else 
+	else
 		write(2, "KO\n", 3);
 }

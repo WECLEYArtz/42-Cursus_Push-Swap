@@ -35,7 +35,7 @@ static void	apply_mutual_rots(t_stacks stacks, t_mvs_rots *rot,
 
 static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 {
-	void	(*rotfunc[2])(t_list **stack_p, char *act_name);
+	void	(*rotfunc[2])(t_list * *stack_p, char *act_name);
 
 	rotfunc[0] = r;
 	rotfunc[1] = rr;
@@ -80,8 +80,8 @@ static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
 	}
 }
 
-static void	turk_rec( t_stacks stacks, t_stack_len stack_len,
-		t_list *work_node, size_t index)
+static void	turk_rec(t_stacks stacks, t_stack_len stack_len, t_list *work_node,
+		size_t index)
 {
 	t_mvs_rots			rots;
 	static t_cheapest	cheapest;

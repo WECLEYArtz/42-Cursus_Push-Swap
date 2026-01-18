@@ -50,10 +50,10 @@ static void	parse_argument(t_list **stack_a, char **argv, short *valid)
 			continue ;
 		}
 		if (**argv == '\0')
-			return;
+			return ;
 		if (ft_isdigit(**argv) || **argv == '-' || **argv == '+')
 			new = int_to_node(argv, valid);
-		if(!new)
+		if (!new)
 		{
 			ft_lstclear(stack_a, free);
 			exit(1);
@@ -61,7 +61,7 @@ static void	parse_argument(t_list **stack_a, char **argv, short *valid)
 		if (*valid == 0 || node_dup(*stack_a, *(int *)(new)->content))
 		{
 			*valid = 0;
-			return;
+			return ;
 		}
 		ft_lstadd_back(stack_a, new);
 	}

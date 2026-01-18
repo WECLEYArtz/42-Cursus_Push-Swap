@@ -74,7 +74,6 @@ void	rrr_(t_stacks stacks)
 		write(1, "rrr\n", 4);
 }
 
-
 void	ss_(t_stacks stacks)
 {
 	swap(stacks.a);
