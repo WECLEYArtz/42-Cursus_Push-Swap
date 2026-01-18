@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 void	rr__(t_stacks stacks)
 {
 	rotate(stacks.a);
