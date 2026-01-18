@@ -1,3 +1,4 @@
+#!/bin/bash
 CMD="./push_swap \$1 | wc-l"
 RES=$(cat << EOF | python3 | sed -e 's/(/"/g' -e 's/)/"/g' -e 's/,/ /g' | xargs -I ... echo ...
 from itertools import permutations

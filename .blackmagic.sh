@@ -1,3 +1,5 @@
+#!/bin/bash
+
 MAX=5500;
 
 TEST=0
