@@ -17,7 +17,8 @@ SRC_MAIN_B	= checker_bonus.c
 
 SRC =\
 actions.c\
-actions_caller.c\
+actions_caller_p1.c\
+actions_caller_p2.c\
 examin_status.c\
 final_sort.c\
 ft_atoi_custom.c\
