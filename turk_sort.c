@@ -35,7 +35,7 @@ static void	apply_mutual_rots(t_stacks stacks, t_mvs_rots *rot,
 
 static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 {
-	void	(*rotfunc[2])(t_list * *stack_p, char *act_name);
+	void	(*rotfunc[2])(t_list **stack_p, char *act_name);
 
 	rotfunc[0] = r;
 	rotfunc[1] = rr;
