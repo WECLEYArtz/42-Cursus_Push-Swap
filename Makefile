@@ -1,5 +1,5 @@
 HDR = push_swap.h
-CC = cc -g3
+CC = cc
 CFLAGS = -Werror -Wall -Wextra
 AR = ar rcs
 
