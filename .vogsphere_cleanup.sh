@@ -20,6 +20,15 @@ rm -rf .todo.txt
 rm -rf .vogsphere_cleanup.sh
 rm -rf .whitemagic.sh
 
+# [make libft files accessible]
+git rm --cached libft
+cd libft
+make fclean
+rm -rf .git
+cd ..
+git add libft
+
+
 git add .
 git commit -m "auto delete"
 git push -f 42 vogsphere:main
