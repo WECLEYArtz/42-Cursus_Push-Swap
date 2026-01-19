@@ -6,11 +6,10 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:48:30 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:16:32 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
 
 /*	Takes stack a and b to to push everything from a to b.
@@ -33,7 +32,8 @@ int	main(int argc, char **argv)
 		stacks.b = &stack_b;
 		if (argc < 2)
 			return (1);
-		examin_status(stacks.a);
+		if (examin_status(stacks.a))
+			return (0);
 		init_stacks(stacks);
 		if (stack_b)
 			turk_sort(stacks);

@@ -6,47 +6,47 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:51:05 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:16:38 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
 
-static short	optimise_rots(size_t *moves, size_t stack_len)
+static void	optimise_rots(t_mvs_rots *rots, t_stack_len stack_len)
 {
-	if (*moves > stack_len / 2)
+	if (rots->moves_a > stack_len.a / 2)
 	{
-		*moves = stack_len - *moves;
-		return (1);
+		rots->moves_a = stack_len.a - rots->moves_a;
+		rots->rev_direct_a = 1;
 	}
-	return (0);
-}
-
-static void	apply_mutual_rots(t_stacks stacks, t_mvs_rots *rot,
-		void f(t_stacks stacks))
-{
-	while (rot->moves_a && rot->moves_b)
+	else
+		rots->rev_direct_a = 0;
+	if (rots->moves_b > stack_len.b / 2)
 	{
-		f(stacks);
-		rot->moves_a--;
-		rot->moves_b--;
+		rots->moves_b = stack_len.b - rots->moves_b;
+		rots->rev_direct_b = 1;
 	}
+	else
+		rots->rev_direct_b = 0;
 }
 
 static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 {
 	void	(*rotfunc[2])(t_list **stack_p, char *act_name);
+	void	(*mutual_rotfunc[2])(t_stacks stacks);
 
 	rotfunc[0] = r;
 	rotfunc[1] = rr;
-	if (rot.rev_direct_a && rot.rev_direct_b)
+	mutual_rotfunc[0] = rr__;
+	mutual_rotfunc[1] = rrr_;
+	if (rot.rev_direct_a == rot.rev_direct_b)
 	{
-		apply_mutual_rots(stacks, &rot, rrr_);
-	}
-	else if (!rot.rev_direct_a && !rot.rev_direct_b)
-	{
-		apply_mutual_rots(stacks, &rot, rr__);
+		while (rot.moves_a && rot.moves_b)
+		{
+			mutual_rotfunc[rot.rev_direct_a](stacks);
+			rot.moves_a--;
+			rot.moves_b--;
+		}
 	}
 	while (rot.moves_a--)
 	{
@@ -59,12 +59,10 @@ static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 }
 
 static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
-		t_stack_len stack_len, size_t index)
+		size_t index)
 {
 	size_t	new_cost;
 
-	rot->rev_direct_a = optimise_rots(&(rot->moves_a), stack_len.a);
-	rot->rev_direct_b = optimise_rots(&(rot->moves_b), stack_len.b);
 	if (rot->rev_direct_a == rot->rev_direct_b)
 	{
 		if (rot->moves_a > rot->moves_b)
@@ -81,8 +79,8 @@ static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
 	}
 }
 
-static void	turk_rec( t_stacks stacks, t_stack_len stack_len,
-		t_list *work_node, size_t index)
+static void	turk_rec(t_stacks stacks, t_stack_len stacks_len, t_list *stack,
+		size_t index)
 {
 	t_mvs_rots			rots;
 	static t_cheapest	cheapest;
@@ -93,15 +91,15 @@ static void	turk_rec( t_stacks stacks, t_stack_len stack_len,
 		cheapest.cost = LONG_MAX;
 		cheapest.applied = 0;
 	}
-	if (work_node)
+	if (stack)
 	{
-		rots.moves_a = get_target_moves(*stacks.a,
-				*(int *)(work_node->content));
+		rots.moves_a = get_target_moves(*stacks.a, *(int *)(stack->content));
 		rots.moves_b = index;
-		update_cheapest(&cheapest, &rots, stack_len, index);
+		optimise_rots(&rots, stacks_len);
+		update_cheapest(&cheapest, &rots, index);
 		if (!cheapest.cost)
 			return ;
-		turk_rec(stacks, stack_len, work_node->next, index + 1);
+		turk_rec(stacks, stacks_len, stack->next, index + 1);
 	}
 	if (cheapest.index == index && !cheapest.applied)
 	{
@@ -112,16 +110,16 @@ static void	turk_rec( t_stacks stacks, t_stack_len stack_len,
 
 void	turk_sort(t_stacks stacks)
 {
-	t_stack_len	stack_len;
+	t_stack_len	stacks_len;
 
-	stack_len.a = ft_lstsize(*stacks.a);
-	stack_len.b = ft_lstsize(*stacks.b);
+	stacks_len.a = ft_lstsize(*stacks.a);
+	stacks_len.b = ft_lstsize(*stacks.b);
 	while (*stacks.b)
 	{
-		turk_rec(stacks, stack_len, *stacks.b, 0);
+		turk_rec(stacks, stacks_len, *stacks.b, 0);
 		p(stacks.a, stacks.b, "a");
-		stack_len.a++;
-		stack_len.b--;
+		stacks_len.a++;
+		stacks_len.b--;
 	}
-	final_sort(stacks.a, stack_len.a);
+	final_sort(stacks.a, stacks_len.a);
 }
