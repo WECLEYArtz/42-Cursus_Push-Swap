@@ -9,7 +9,7 @@ COUNT=0
 
 while true;
 do
-	TEST=$(shuf -i  1-500 -n 500 | tr "\n" " ")
+	TEST=$(seq -500 500 | shuf -n 500 | tr "\n" " ")
 	RES=$(./push_swap $TEST | wc -l)
 	CHECKER=$(./push_swap $TEST | ./checker_linux $TEST)
 	echo $RES at $COUNT is $CHECKER
