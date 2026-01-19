@@ -32,3 +32,4 @@ git add libft
 git add .
 git commit -m "auto delete"
 git push -f 42 vogsphere:main
+git checkout main
