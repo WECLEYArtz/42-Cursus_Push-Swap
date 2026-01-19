@@ -38,7 +38,7 @@ void	append_instr(t_list **instr_list, char *buff)
 		return (ft_lstadd_back(instr_list, ft_lstnew(ft_strdup("rrr"))));
 	ft_lstclear(instr_list, free);
 	write(2, "Error\n", 6);
-	exit(1);
+	exit(-1);
 }
 
 void	apply_instr(t_list *instr_list, t_stacks stacks)

@@ -56,7 +56,7 @@ static void	parse_argument(t_list **stack_a, char **argv, short *valid)
 		if (!new)
 		{
 			ft_lstclear(stack_a, free);
-			exit(1);
+			exit(-1);
 		}
 		if (*valid == 0 || node_dup(*stack_a, *(int *)(new)->content))
 		{
@@ -86,7 +86,7 @@ t_list	*get_list(char **argv)
 	{
 		ft_lstclear(&stack_a, free);
 		write(2, "Error\n", 6);
-		exit(1);
+		exit(-1);
 	}
 	return (stack_a);
 }
