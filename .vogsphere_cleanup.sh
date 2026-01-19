@@ -2,6 +2,7 @@ git branch -D vogsphere
 git checkout -b vogsphere
 
 make fclean
+make -C ./libft fclean
 
 rm -rf *test*
 rm -rf *Test*
@@ -23,7 +24,6 @@ rm -rf .whitemagic.sh
 # [make libft files accessible]
 git rm --cached libft
 cd libft
-make fclean
 rm -rf .git
 cd ..
 git add libft
