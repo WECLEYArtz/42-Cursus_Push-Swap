@@ -8,7 +8,6 @@ rm -rf *test*
 rm -rf *Test*
 rm -rf a.out*
 
-rm -rf *.md
 rm -rf *.txt
 rm -rf .*.txt
 rm -rf *.txt
@@ -23,7 +22,7 @@ rm -rf .whitemagic.sh
 
 # [make libft files accessible]
 git rm --cached libft
-cd libft
+cd libft || exit
 rm -rf .git
 cd ..
 git add libft
