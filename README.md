@@ -60,12 +60,13 @@ The target is the smallest element in stack `a` which remains bigger than the on
 
 example:
 ```
+ _______________________________ 
 |       | .     | 8     | 1     |
 | 1     | 9     | 9     | 3     |
 | 3     | 1     | 1     | 7     |
 | 7<    | 3     | 3     | 8     |
 | 9   6 | 7<  8 | 7     | 9     |
-_________________________________
+________________________________ 
 | a - b | a - b | a - b | a - b |
 ```
 
@@ -110,10 +111,10 @@ arg=`seq -250 250 | shuf -n 500 | tr "\n" " "` && ./push_swap $arg | ./checker $
 ```
 
 # Resources
-to learn about array of pointers to functions
+To learn about array of pointers to functions
 - https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/cpp/language-compilers/declare-pointers-to-functions
 
-to learn about turk algo
+To learn about turk algo
 - https://pure-forest.medium.com/push-swap-turk-algorithm-explained-in-6-steps-4c6650a458c0
 - https://github.com/alx-sch/push_swap
 
