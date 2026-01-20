@@ -33,10 +33,8 @@ static size_t	get_moves_break(t_list *stack_a)
 
 void	final_sort(t_list **stack_a, size_t stack_len_a)
 {
-	t_list	*work_node;
 	size_t	moves;
 
-	work_node = *stack_a;
 	moves = get_moves_break(*stack_a);
 	if (moves > stack_len_a / 2)
 	{
