@@ -83,6 +83,7 @@ typedef struct  s_cheapest
 ```
 Where `index` is the stack_b element under calculation proccess to count the `cost`, then apply the neccesary instructions and marking them as `applied`
 
+At the end, a final sort is needed to rotate stack_a to its correct order.
 # Instructions
 
 ### 1 - run `make` or `make clean`
