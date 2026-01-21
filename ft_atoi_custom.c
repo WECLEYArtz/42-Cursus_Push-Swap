@@ -48,5 +48,5 @@ int	ft_atoi_custom(char **argv, short *success)
 	if (ft_isdigit(**argv))
 		return ((long)ft_atoi_convert(argv, sign, success) * sign);
 	else
-		return (*success = 0, 0);
+		return (0);
 }

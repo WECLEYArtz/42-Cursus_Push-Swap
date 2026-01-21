@@ -38,6 +38,12 @@ static t_list	*int_to_node(char **argv, short *valid)
 	return (ft_lstnew(integer));
 }
 
+static void	clean_kill(t_list **stack_a)
+{
+	ft_lstclear(stack_a, free);
+	exit(-1);
+}
+
 static void	parse_argument(t_list **stack_a, char **argv, short *valid)
 {
 	t_list	*new;
@@ -51,13 +57,12 @@ static void	parse_argument(t_list **stack_a, char **argv, short *valid)
 		}
 		if (**argv == '\0')
 			return ;
-		if (ft_isdigit(**argv) || **argv == '-' || **argv == '+')
-			new = int_to_node(argv, valid);
+		*valid = 0;
+		if (!(ft_isdigit(**argv) || **argv == '-' || **argv == '+'))
+			return ;
+		new = int_to_node(argv, valid);
 		if (!new)
-		{
-			ft_lstclear(stack_a, free);
-			exit(-1);
-		}
+			clean_kill(stack_a);
 		if (*valid == 0 || node_dup(*stack_a, *(int *)(new)->content))
 		{
 			*valid = 0;
