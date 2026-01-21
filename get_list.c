@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
 #include <stdlib.h>
 
@@ -35,6 +36,11 @@ static t_list	*int_to_node(char **argv, short *valid)
 	if (!integer)
 		return (NULL);
 	*integer = ft_atoi_custom(argv, valid);
+	if(*valid == 0)
+	{
+		free(integer);
+		integer = NULL;
+	}
 	return (ft_lstnew(integer));
 }
 
@@ -65,6 +71,7 @@ static void	parse_argument(t_list **stack_a, char **argv, short *valid)
 			clean_kill(stack_a);
 		if (*valid == 0 || node_dup(*stack_a, *(int *)(new)->content))
 		{
+			ft_lstdelone(new, free);
 			*valid = 0;
 			return ;
 		}
