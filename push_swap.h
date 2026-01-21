@@ -6,7 +6,7 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:47:13 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:48:30 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/22 00:30:52 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,9 @@ short		examin_status(t_list **stack);
 void		hard_sort(t_list **stack_a);
 void		final_sort(t_list **stack_a, size_t stack_len_a);
 int			ft_atoi_custom(char **argv, short *success);
+
+// Bonus helpers
+short		is_instr(char *buff);
+void		apply_checker_instr(t_list *instr_list, t_stacks stacks);
 
 #endif

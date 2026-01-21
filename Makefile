@@ -12,8 +12,7 @@ BIN = push_swap
 BIN_B = checker_bonus
 
 SRC_MAIN	= push_swap.c
-SRC_MAIN_B	= checker_bonus.c
-
+SRC_MAIN_B	= checker_bonus.c checker_utils_bonus.c
 
 SRC =\
 actions.c\
