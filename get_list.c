@@ -36,7 +36,7 @@ static t_list	*int_to_node(char **argv, short *valid)
 	if (!integer)
 		return (NULL);
 	*integer = ft_atoi_custom(argv, valid);
-	if(*valid == 0)
+	if (*valid == 0)
 	{
 		free(integer);
 		integer = NULL;
