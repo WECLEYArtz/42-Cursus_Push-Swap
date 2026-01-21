@@ -32,9 +32,9 @@ turk_sort.c
 OBJ = $(SRC:.c=.o)
 OBJ_MAIN_B = $(SRC_MAIN_B:.c=.o)
 
-all: $(BIN)
+all: Libft $(BIN) 
 
-bonus: $(BIN_B)
+bonus: Libft $(BIN_B)
 
 $(BIN): $(SRC_MAIN) $(NAME) $(LIBFT)
 	@echo "\n[ Compiling... ]"
@@ -43,8 +43,6 @@ $(BIN): $(SRC_MAIN) $(NAME) $(LIBFT)
 $(BIN_B): $(SRC_MAIN_B) $(NAME) $(LIBFT)
 	@echo "\n[ Compiling bonus... ]"
 	$(CC) $(CFLAGS) -o $(BIN_B) $^
-
-$(LIBFT) : Libft
 
 Libft : 
 	@echo "\n[ Upating Libft... ]"
