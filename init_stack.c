@@ -19,7 +19,7 @@ static void	push_two(t_stacks stacks, size_t *stack_size, int *new_big)
 	first_two = 2;
 	while (*stack_size > 3 && first_two--)
 	{
-		p(stacks.b, stacks.a, "b");
+		p(stacks.b, stacks.a, "b", 1);
 		(*stack_size)--;
 		if (*(int *)(*stacks.b)->content > *new_big)
 			*new_big = *(int *)((*stacks.b)->content);
@@ -30,12 +30,12 @@ static void	push_till_three(t_stacks stacks, size_t stack_size, int new_big)
 {
 	while (stack_size > 3)
 	{
-		p(stacks.b, stacks.a, "b");
+		p(stacks.b, stacks.a, "b", 1);
 		stack_size--;
 		if (*(int *)(*stacks.b)->content > *(int *)((*stacks.b)->next->content))
 			new_big = *(int *)((*stacks.b)->next->content);
 		else if (*(int *)(*stacks.b)->content < new_big / 2)
-			r(stacks.b, "b");
+			r(stacks.b, "b", 1);
 	}
 }
 

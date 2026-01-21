@@ -27,24 +27,24 @@ void	hard_sort(t_list **stack_a)
 
 	if (!(*stack_a)->next->next)
 	{
-		s(stack_a, "a");
+		s(stack_a, "a", 1);
 		return ;
 	}
 	fill_arr(vals, *stack_a);
 	if (vals[0] < vals[1] && vals[1] < vals[2] && vals[0] < vals[2])
 		return ;
 	if (vals[0] > vals[1] && vals[1] < vals[2] && vals[0] < vals[2])
-		s(stack_a, "a");
+		s(stack_a, "a", 1);
 	if (vals[0] > vals[1])
 	{
-		r(stack_a, "a");
+		r(stack_a, "a", 1);
 		if (vals[1] > vals[2])
-			s(stack_a, "a");
+			s(stack_a, "a", 1);
 	}
 	else if (vals[0] < vals[1])
 	{
-		rr(stack_a, "a");
+		rr(stack_a, "a", 1);
 		if (vals[0] < vals[2])
-			s(stack_a, "a");
+			s(stack_a, "a", 1);
 	}
 }

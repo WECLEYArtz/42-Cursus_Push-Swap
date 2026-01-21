@@ -32,8 +32,8 @@ static void	optimise_rots(t_mvs_rots *rots, t_stack_len stack_len)
 
 static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 {
-	void	(*rotfunc[2])(t_list **stack_p, char *act_name);
-	void	(*mutual_rotfunc[2])(t_stacks stacks);
+	void	(*rotfunc[2])(t_list **stack_p, char *act_name, short verbal);
+	void	(*mutual_rotfunc[2])(t_stacks stacks, short verbal);
 
 	rotfunc[0] = r;
 	rotfunc[1] = rr;
@@ -43,18 +43,18 @@ static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 	{
 		while (rot.moves_a && rot.moves_b)
 		{
-			mutual_rotfunc[rot.rev_direct_a](stacks);
+			mutual_rotfunc[rot.rev_direct_a](stacks, 1);
 			rot.moves_a--;
 			rot.moves_b--;
 		}
 	}
 	while (rot.moves_a--)
 	{
-		rotfunc[rot.rev_direct_a](stacks.a, "a");
+		rotfunc[rot.rev_direct_a](stacks.a, "a", 1);
 	}
 	while (rot.moves_b--)
 	{
-		rotfunc[rot.rev_direct_b](stacks.b, "b");
+		rotfunc[rot.rev_direct_b](stacks.b, "b", 1);
 	}
 }
 
@@ -117,7 +117,7 @@ void	turk_sort(t_stacks stacks)
 	while (*stacks.b)
 	{
 		turk_rec(stacks, stacks_len, *stacks.b, 0);
-		p(stacks.a, stacks.b, "a");
+		p(stacks.a, stacks.b, "a", 1);
 		stacks_len.a++;
 		stacks_len.b--;
 	}

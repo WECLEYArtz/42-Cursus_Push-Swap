@@ -40,9 +40,9 @@ void	final_sort(t_list **stack_a, size_t stack_len_a)
 	{
 		moves = stack_len_a - moves;
 		while (moves--)
-			rr(stack_a, "a");
+			rr(stack_a, "a", 1);
 	}
 	else
 		while (moves--)
-			r(stack_a, "a");
+			r(stack_a, "a", 1);
 }

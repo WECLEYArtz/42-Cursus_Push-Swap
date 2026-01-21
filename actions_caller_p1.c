@@ -12,23 +12,26 @@
 
 #include "push_swap.h"
 
-void	rr__(t_stacks stacks)
+void	rr__(t_stacks stacks, short verbal)
 {
 	rotate(stacks.a);
 	rotate(stacks.b);
-	write(1, "rr\n", 3);
+	if (verbal)
+		write(1, "rr\n", 3);
 }
 
-void	rrr_(t_stacks stacks)
+void	rrr_(t_stacks stacks, short verbal)
 {
 	revrotate(stacks.a);
 	revrotate(stacks.b);
-	write(1, "rrr\n", 4);
+	if (verbal)
+		write(1, "rrr\n", 4);
 }
 
-void	ss_(t_stacks stacks)
+void	ss_(t_stacks stacks, short verbal)
 {
 	swap(stacks.a);
 	swap(stacks.b);
-	write(1, "ss\n", 3);
+	if (verbal)
+		write(1, "ss\n", 3);
 }
