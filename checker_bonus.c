@@ -27,14 +27,14 @@ static t_list	*get_inputs(t_stacks stacks)
 			break ;
 		if (!is_instr(buff))
 		{
-			clean_up(stacks, &instr_list);
-			flush_gnl();
+			clean_up(stacks, &instr_list, buff);
+			get_next_line(-1);
 			write(2, "Error\n", 6);
 			exit(-1);
 		}
 		tmp = ft_lstnew(buff);
 		if (!tmp)
-			return (clean_up(stacks, &instr_list), NULL);
+			return (clean_up(stacks, &instr_list, buff), NULL);
 		ft_lstadd_back(&instr_list, tmp);
 	}
 	return (instr_list);

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/get_next_line/get_next_line.h"
 #include "libft/libft.h"
 #include "push_swap.h"
 
@@ -67,22 +66,10 @@ void	apply_checker_instr(t_list *instr_list, t_stacks stacks)
 		return (rrr_(stacks, 0));
 }
 
-void	clean_up(t_stacks stacks, t_list **instr_list)
+void	clean_up(t_stacks stacks, t_list **instr_list, char *buff)
 {
+	free(buff);
 	ft_lstclear(stacks.a, free);
 	ft_lstclear(stacks.b, free);
 	ft_lstclear(instr_list, free);
-}
-
-void	flush_gnl()
-{
-	char *buff;
-
-	while (1)
-	{
-		buff = get_next_line(0);
-		if(!buff)
-			return;
-		free(buff);
-	}
 }
