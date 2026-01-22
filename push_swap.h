@@ -94,5 +94,7 @@ int			ft_atoi_custom(char **argv, short *success);
 // Bonus helpers
 short		is_instr(char *buff);
 void		apply_checker_instr(t_list *instr_list, t_stacks stacks);
+void		clean_up(t_stacks stacks, t_list **instr_list);
+void		flush_gnl();
 
 #endif

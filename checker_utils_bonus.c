@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/get_next_line/get_next_line.h"
 #include "libft/libft.h"
 #include "push_swap.h"
 
@@ -64,4 +65,24 @@ void	apply_checker_instr(t_list *instr_list, t_stacks stacks)
 		return (rr(stacks.b, "b", 0));
 	if (ft_strncmp(instr_list->content, "rrr\n", 4) == 0)
 		return (rrr_(stacks, 0));
+}
+
+void	clean_up(t_stacks stacks, t_list **instr_list)
+{
+	ft_lstclear(stacks.a, free);
+	ft_lstclear(stacks.b, free);
+	ft_lstclear(instr_list, free);
+}
+
+void	flush_gnl()
+{
+	char *buff;
+
+	while (1)
+	{
+		buff = get_next_line(0);
+		if(!buff)
+			return;
+		free(buff);
+	}
 }

@@ -13,13 +13,6 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-static void	clean_up(t_stacks stacks, t_list **instr_list)
-{
-	ft_lstclear(stacks.a, free);
-	ft_lstclear(stacks.b, free);
-	ft_lstclear(instr_list, free);
-}
-
 static t_list	*get_inputs(t_stacks stacks)
 {
 	t_list	*instr_list;
@@ -35,6 +28,7 @@ static t_list	*get_inputs(t_stacks stacks)
 		if (!is_instr(buff))
 		{
 			clean_up(stacks, &instr_list);
+			flush_gnl();
 			write(2, "Error\n", 6);
 			exit(-1);
 		}
