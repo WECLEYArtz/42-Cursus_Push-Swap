@@ -37,7 +37,7 @@
 *.hex
 a.out*
 push_swap
-checker_bonus
+checker
 
 # Debug files
 *.dSYM/
