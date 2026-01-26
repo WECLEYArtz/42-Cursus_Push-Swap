@@ -1,4 +1,5 @@
 HDR = push_swap.h
+HDR_B = checker_bonus.h
 CC = cc
 CFLAGS = -Werror -Wall -Wextra
 AR = ar rcs
@@ -9,7 +10,7 @@ LIBFT = libft/libft.a
 
 
 BIN = push_swap
-BIN_B = checker_bonus
+BIN_B = checker
 
 SRC_MAIN	= push_swap.c
 SRC_MAIN_B	= checker_bonus.c checker_utils_bonus.c
@@ -37,11 +38,11 @@ bonus: Libft $(BIN_B)
 
 $(BIN): $(SRC_MAIN) $(NAME) $(LIBFT)
 	@echo "\n[ Compiling... ]"
-	$(CC) $(CFLAGS) -o $(BIN) $^
+	$(CC) $(CFLAGS) -o $@ $^
 
-$(BIN_B): $(SRC_MAIN_B) $(NAME) $(LIBFT)
+$(BIN_B): $(HDR_B) $(SRC_MAIN_B) $(NAME) $(LIBFT)
 	@echo "\n[ Compiling bonus... ]"
-	$(CC) $(CFLAGS) -o $(BIN_B) $^
+	$(CC) $(CFLAGS) -o $@ -I $^
 
 Libft : 
 	@echo "\n[ Upating Libft... ]"

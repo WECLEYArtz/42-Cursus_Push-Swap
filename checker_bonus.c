@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 static t_list	*get_inputs(t_stacks stacks)
 {

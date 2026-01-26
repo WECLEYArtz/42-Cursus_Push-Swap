@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 short	is_instr(char *buff)
 {
