@@ -6,7 +6,7 @@
 /*   By: ahmounsi <<marvin@42.fr>>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:05:19 by ahmounsi          #+#    #+#             */
-/*   Updated: 2026/01/15 23:48:30 by ahmounsi         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:32:17 by ahmounsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	if (instr_list)
 		apply_inputs(stacks, &instr_list);
 	if (examin_status(&stack_a))
-		write(2, "OK\n", 3);
+		write(1, "OK\n", 3);
 	else
 		write(2, "KO\n", 3);
 	ft_lstclear(&stack_a, free);
