@@ -91,5 +91,4 @@ void		hard_sort(t_list **stack_a);
 void		final_sort(t_list **stack_a, size_t stack_len_a);
 int			ft_atoi_custom(char **argv, short *success);
 
-
 #endif
