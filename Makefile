@@ -1,5 +1,9 @@
+NAME = push_swap
+NAME_B = checker
+
 HDR = push_swap.h
 HDR_B = checker_bonus.h
+
 CC = cc
 CFLAGS = -Werror -Wall -Wextra
 AR = ar rcs
@@ -8,9 +12,6 @@ AR = ar rcs
 PS_ARCHIVE = push_swap.a
 LIBFT = libft/libft.a
 
-
-NAME = push_swap
-NAME_B = checker
 
 SRC_MAIN	= push_swap.c
 SRC_MAIN_B	= checker_bonus.c checker_utils_bonus.c
