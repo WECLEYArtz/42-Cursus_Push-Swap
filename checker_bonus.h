@@ -13,7 +13,7 @@
 #ifndef CHECKER_BONUS_H
 # define CHECKER_BONUS_H
 
-#include "push_swap.h"
+# include "push_swap.h"
 
 // Bonus helpers
 short	is_instr(char *buff);
