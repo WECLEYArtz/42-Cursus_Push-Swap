@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
+#include <unistd.h>
 
 static void	optimise_rots(t_mvs_rots *rots, t_stack_len stack_len)
 {
@@ -108,7 +110,7 @@ void	turk_sort(t_stacks stacks)
 {
 	t_stack_len	stacks_len;
 
-	stacks_len.a = ft_lstsize(*stacks.a);
+	stacks_len.a = 3;
 	stacks_len.b = ft_lstsize(*stacks.b);
 	while (*stacks.b)
 	{
