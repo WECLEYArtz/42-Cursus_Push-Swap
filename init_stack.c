@@ -26,7 +26,9 @@ static void	push_two(t_stacks stacks, size_t *stack_size)
 
 static void	push_till_three(t_stacks stacks, size_t stack_size)
 {
-	int mid_big = *(int *)(*stacks.b)->content * 0.5;
+	int	mid_big;
+
+	mid_big = *(int *)(*stacks.b)->content * 0.5;
 	while (stack_size > 3)
 	{
 		p(stacks.b, stacks.a, "b", 1);
