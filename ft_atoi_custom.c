@@ -12,7 +12,7 @@
 
 #include "libft/libft.h"
 
-static long	ft_atoi_convert(char **argv, short sign, short *success)
+static long	ft_atoi_convert(char **argv, short *success)
 {
 	long	result;
 
@@ -21,7 +21,7 @@ static long	ft_atoi_convert(char **argv, short sign, short *success)
 	{
 		if ((int)((result * 10) + (int)(**argv - '0')) < result)
 		{
-			if (sign == -1 && ft_strncmp(*argv - 9, "2147483648", 10) == 0)
+			if (ft_strncmp(*argv - 10, "-2147483648", 11) == 0)
 				result = (result * 10) + (*(*argv)++ - '0');
 			else
 				return (0);
@@ -46,7 +46,7 @@ int	ft_atoi_custom(char **argv, short *success)
 		(*argv)++;
 	}
 	if (ft_isdigit(**argv))
-		return ((long)ft_atoi_convert(argv, sign, success) * sign);
+		return ((long)ft_atoi_convert(argv, success) * sign);
 	else
 		return (0);
 }
