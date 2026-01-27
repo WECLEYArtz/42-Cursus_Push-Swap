@@ -24,14 +24,14 @@ int	main(int argc, char **argv)
 	t_list		*stack_b;
 	t_stacks	stacks;
 
+	if (argc < 2)
+		return (1);
 	stack_a = get_list(argv + 1);
 	stack_b = NULL;
 	if (stack_a)
 	{
 		stacks.a = &stack_a;
 		stacks.b = &stack_b;
-		if (argc < 2)
-			return (1);
 		if (examin_status(stacks.a))
 			return (0);
 		init_stacks(stacks);
