@@ -89,7 +89,6 @@ static void	turk_rec(t_stacks stacks, t_stack_len stacks_len, t_list *stack,
 	{
 		cheapest.index = 0;
 		cheapest.cost = LONG_MAX;
-		cheapest.applied = 0;
 	}
 	if (stack)
 	{
@@ -101,11 +100,8 @@ static void	turk_rec(t_stacks stacks, t_stack_len stacks_len, t_list *stack,
 			return ;
 		turk_rec(stacks, stacks_len, stack->next, index + 1);
 	}
-	if (cheapest.index == index && !cheapest.applied)
-	{
+	if (cheapest.index == index)
 		apply_instr(stacks, rots);
-		cheapest.applied = 1;
-	}
 }
 
 void	turk_sort(t_stacks stacks)

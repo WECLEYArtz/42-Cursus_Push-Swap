@@ -36,7 +36,6 @@ typedef struct s_cheapest
 {
 	size_t	index;
 	size_t	cost;
-	short	applied;
 }			t_cheapest;
 
 typedef struct s_stack_len
