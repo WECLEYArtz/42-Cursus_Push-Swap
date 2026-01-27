@@ -18,6 +18,7 @@ static void	push_till_three(t_stacks stacks, size_t stack_a_size)
 	int	mid_biggest;
 
 	p(stacks.b, stacks.a, "b", 1);
+	stack_a_size--;
 	mid_biggest = *(int *)(*stacks.b)->content * 0.5;
 	while (stack_a_size > 3)
 	{
