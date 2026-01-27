@@ -11,31 +11,21 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
-static void	push_two(t_stacks stacks, size_t *stack_size)
+static void	push_till_three(t_stacks stacks, size_t stack_a_size)
 {
-	short	first_two;
+	int	mid_biggest;
 
-	first_two = 2;
-	while (*stack_size > 3 && first_two--)
+	p(stacks.b, stacks.a, "b", 1);
+	mid_biggest = *(int *)(*stacks.b)->content * 0.5;
+	while (stack_a_size > 3)
 	{
 		p(stacks.b, stacks.a, "b", 1);
-		(*stack_size)--;
-	}
-}
-
-static void	push_till_three(t_stacks stacks, size_t stack_size)
-{
-	int	mid_big;
-
-	mid_big = *(int *)(*stacks.b)->content * 0.5;
-	while (stack_size > 3)
-	{
-		p(stacks.b, stacks.a, "b", 1);
-		stack_size--;
-		if (*(int *)(*stacks.b)->content > *(int *)((*stacks.b)->next->content))
-			mid_big = *(int *)((*stacks.b)->next->content) * 0.5;
-		else if (*(int *)(*stacks.b)->content < mid_big)
+		stack_a_size--;
+		if (*(int *)(*stacks.b)->content > *(int *)(*stacks.b)->next->content)
+			mid_biggest = *(int *)((*stacks.b)->next->content) * 0.5;
+		else if (*(int *)(*stacks.b)->content < mid_biggest)
 			r(stacks.b, "b", 1);
 	}
 }
@@ -46,9 +36,6 @@ void	init_stacks(t_stacks stacks)
 
 	stack_size = ft_lstsize(*(stacks.a));
 	if (stack_size > 3)
-	{
-		push_two(stacks, &stack_size);
 		push_till_three(stacks, stack_size);
-	}
 	hard_sort(stacks.a);
 }
