@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 	instr_list = get_inputs(stacks);
 	if (instr_list)
 		apply_inputs(stacks, &instr_list);
-	if (examin_status(&stack_a))
+	if (examin_status(&stack_a) && !stack_b)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
