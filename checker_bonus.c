@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 	if (examin_status(&stack_a))
 		write(1, "OK\n", 3);
 	else
-		write(2, "KO\n", 3);
+		write(1, "KO\n", 3);
 	ft_lstclear(&stack_a, free);
 	ft_lstclear(&stack_b, free);
 }
