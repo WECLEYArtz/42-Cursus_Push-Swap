@@ -32,8 +32,8 @@ int	main(int argc, char **argv)
 	{
 		stacks.a = &stack_a;
 		stacks.b = &stack_b;
-		if (examin_status(stacks.a))
-			return (0);
+		if (examin_status(stack_a))
+			return (ft_lstclear(stacks.a, free), 0);
 		init_stacks(stacks);
 		if (stack_b)
 			turk_sort(stacks);
