@@ -36,7 +36,6 @@ typedef struct s_cheapest
 {
 	size_t	index;
 	size_t	cost;
-	short	applied;
 }			t_cheapest;
 
 typedef struct s_stack_len
@@ -85,7 +84,7 @@ size_t		get_target_moves(t_list *stack_a, int target);
 
 // Helpers
 void		init_stacks(t_stacks stacks);
-short		examin_status(t_list **stack);
+short		examin_status(t_list *stack);
 void		hard_sort(t_list **stack_a);
 void		final_sort(t_list **stack_a, size_t stack_len_a);
 int			ft_atoi_custom(char **argv, short *success);

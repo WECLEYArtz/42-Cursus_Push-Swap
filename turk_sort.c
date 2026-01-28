@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
+#include <unistd.h>
 
 static void	optimise_rots(t_mvs_rots *rots, t_stack_len stack_len)
 {
@@ -89,7 +91,6 @@ static void	turk_rec(t_stacks stacks, t_stack_len stacks_len, t_list *stack,
 	{
 		cheapest.index = 0;
 		cheapest.cost = LONG_MAX;
-		cheapest.applied = 0;
 	}
 	if (stack)
 	{
@@ -101,18 +102,15 @@ static void	turk_rec(t_stacks stacks, t_stack_len stacks_len, t_list *stack,
 			return ;
 		turk_rec(stacks, stacks_len, stack->next, index + 1);
 	}
-	if (cheapest.index == index && !cheapest.applied)
-	{
+	if (cheapest.index == index)
 		apply_instr(stacks, rots);
-		cheapest.applied = 1;
-	}
 }
 
 void	turk_sort(t_stacks stacks)
 {
 	t_stack_len	stacks_len;
 
-	stacks_len.a = ft_lstsize(*stacks.a);
+	stacks_len.a = 3;
 	stacks_len.b = ft_lstsize(*stacks.b);
 	while (*stacks.b)
 	{

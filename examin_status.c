@@ -12,23 +12,20 @@
 
 #include "push_swap.h"
 
-short	examin_status(t_list **stack)
+short	examin_status(t_list *stack)
 {
-	t_list	*work_stack;
 	int		prev_val;
 
-	work_stack = *stack;
-	if (!work_stack)
+	if (!stack)
 		return (1);
-	prev_val = *(int *)(work_stack->content);
-	work_stack = work_stack->next;
-	while (work_stack)
+	prev_val = *(int *)(stack->content);
+	stack = stack->next;
+	while (stack)
 	{
-		if (*(int *)(work_stack->content) < prev_val)
+		if (*(int *)(stack->content) < prev_val)
 			return (0);
-		prev_val = *(int *)(work_stack->content);
-		work_stack = work_stack->next;
+		prev_val = *(int *)(stack->content);
+		stack = stack->next;
 	}
-	ft_lstclear(stack, free);
 	return (1);
 }

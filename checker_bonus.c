@@ -72,10 +72,10 @@ int	main(int argc, char **argv)
 	instr_list = get_inputs(stacks);
 	if (instr_list)
 		apply_inputs(stacks, &instr_list);
-	if (examin_status(&stack_a))
+	if (examin_status(&stack_a) && !stack_b)
 		write(1, "OK\n", 3);
 	else
-		write(2, "KO\n", 3);
+		write(1, "KO\n", 3);
 	ft_lstclear(&stack_a, free);
 	ft_lstclear(&stack_b, free);
 }
