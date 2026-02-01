@@ -40,20 +40,18 @@ void	rotate(t_list **stack_p)
 void	revrotate(t_list **stack_p)
 {
 	t_list	*last_node;
-	t_list	*last_node_depth1;
+	t_list	*before_last_node;
 
 	if (!stack_p || !(*stack_p) || !(*stack_p)->next)
 		return ;
-	last_node = *stack_p;
-	last_node_depth1 = *stack_p;
-	while (1)
+	before_last_node = *stack_p;
+	last_node = (*stack_p)->next;
+	while (last_node->next)
 	{
+		before_last_node = last_node;
 		last_node = last_node->next;
-		if (!(last_node->next))
-			break ;
-		last_node_depth1 = last_node;
 	}
-	last_node_depth1->next = NULL;
+	before_last_node->next = NULL;
 	last_node->next = *stack_p;
 	*stack_p = last_node;
 }
