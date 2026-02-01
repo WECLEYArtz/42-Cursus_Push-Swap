@@ -18,7 +18,7 @@
 
 // +~~~~~~~~~~~~~~~~~~~~~~~~~+
 // +=========================+
-// |  GET_MOVES_TO_TARGET()  |
+// |   GET_MOVES_TO_TARGET   |
 // +=========================+
 typedef struct s_cmp_vars
 {
