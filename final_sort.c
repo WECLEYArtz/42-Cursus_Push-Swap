@@ -12,19 +12,19 @@
 
 #include "push_swap.h"
 
-static size_t	get_moves_break(t_list *stack_a)
+static size_t	get_incr_sqnce_moves(t_list *stack_a)
 {
-	int		last_val;
+	int		previous;
 	size_t	moves;
 
-	last_val = *(int *)(stack_a->content);
+	previous = *(int *)(stack_a->content);
 	stack_a = stack_a->next;
 	moves = 1;
 	while (stack_a)
 	{
-		if (last_val > *(int *)(stack_a->content))
+		if (previous > *(int *)(stack_a->content))
 			return (moves);
-		last_val = *(int *)(stack_a->content);
+		previous = *(int *)(stack_a->content);
 		stack_a = stack_a->next;
 		moves++;
 	}
@@ -35,7 +35,7 @@ void	final_sort(t_list **stack_a, size_t stack_len_a)
 {
 	size_t	moves;
 
-	moves = get_moves_break(*stack_a);
+	moves = get_incr_sqnce_moves(*stack_a);
 	if (moves > stack_len_a / 2)
 	{
 		moves = stack_len_a - moves;
