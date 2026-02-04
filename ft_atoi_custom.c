@@ -19,7 +19,7 @@ static long	ft_atoi_convert(char **argv, short *success)
 	result = 0;
 	while (ft_isdigit(**argv))
 	{
-		if ((int)((result * 10) + (int)(**argv - '0')) < result)
+		if ((int)((result * 10) + (**argv - '0')) < result)
 		{
 			if (ft_strncmp(*argv - 10, "-2147483648", 11) == 0)
 				result = (result * 10) + (*(*argv)++ - '0');
@@ -46,7 +46,7 @@ int	ft_atoi_custom(char **argv, short *success)
 		(*argv)++;
 	}
 	if (ft_isdigit(**argv))
-		return ((long)ft_atoi_convert(argv, success) * sign);
+		return (ft_atoi_convert(argv, success) * sign);
 	else
 		return (0);
 }
