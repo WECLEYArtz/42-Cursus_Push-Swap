@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static void	push_till_three(t_stacks stacks, size_t stack_a_size)
 {

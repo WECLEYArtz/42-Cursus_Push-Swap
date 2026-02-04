@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
-#include <unistd.h>
 
 static void	optimise_rots(t_mvs_rots *rots, t_stack_len stack_len)
 {
