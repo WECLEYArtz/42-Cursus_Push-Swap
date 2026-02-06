@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	t_stacks	stacks;
 
 	if (argc < 2)
-		return (1);
+		return (0);
 	stack_a = get_list(argv + 1);
 	stack_b = NULL;
 	if (stack_a)
