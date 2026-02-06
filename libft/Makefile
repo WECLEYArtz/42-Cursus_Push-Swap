@@ -10,7 +10,9 @@ AR = ar rcs
 
 SRC =\
 ft_isdigit.c \
-ft_strncmp.c
+ft_strncmp.c \
+ft_memcpy.c \
+ft_bzero.c
 SRC_GNL=\
 get_next_line/get_next_line.c\
 get_next_line/get_next_line_utils.c
