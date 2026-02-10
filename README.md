@@ -11,7 +11,7 @@ and using the following moves:
     Swap the first 2 elements at the top of stack a.
     Do nothing if there is only one element or none.
 
-- **sb (swap b  :**
+- **sb (swap b)  :**
     Swap the first 2 elements at the top of stack b.
     Do nothing if there is only one element or none.
 
@@ -106,8 +106,13 @@ or
 arg=`seq -250 250 | shuf -n 500 | tr "\n" " "` && ./push_swap $arg
 ```
 ### 4 - examine the instructinos with 42's checker
+add execution permission
 ```
-arg=`seq -250 250 | shuf -n 500 | tr "\n" " "` && ./push_swap $arg | ./checker $arg
+chmod +x checker_linux 
+```
+run tests
+```
+arg=`seq -250 250 | shuf -n 500 | tr "\n" " "` && ./push_swap $arg | ./checker_linux $arg
 ```
 
 # Resources
