@@ -47,7 +47,7 @@ $(NAME_B): $(HDR_B) $(SRC_MAIN_B) $(PS_ARCHIVE) $(LIBFT)
 
 Libft : 
 	@echo "\n[ Upating Libft... ]"
-	make all bonus -C ./libft CC="cc"
+	make all bonus -C ./libft
 
 $(PS_ARCHIVE):  $(OBJ) 
 	@echo "\n[ Updated Push_swap Archive ]"
