@@ -31,12 +31,6 @@ typedef struct s_cmp_vars
 // +=========================+
 // |        TURK_SORT        |
 // +=========================+
-typedef struct s_cheapest
-{
-	size_t	index;
-	size_t	cost;
-}			t_cheapest;
-
 typedef struct s_stack_len
 {
 	size_t	a;

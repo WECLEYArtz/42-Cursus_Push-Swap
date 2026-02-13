@@ -58,50 +58,57 @@ static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
 	}
 }
 
-static void	update_cheapest(t_cheapest *cheapest_node, t_mvs_rots *rot,
-		size_t index)
+static void	update_cheapest(t_mvs_rots *rot_old, t_mvs_rots *rot_new)
 {
+	size_t	old_cost;
 	size_t	new_cost;
 
-	if (rot->rev_direct_a == rot->rev_direct_b)
+	if (rot_new->rev_direct_a == rot_new->rev_direct_b)
 	{
-		if (rot->moves_a > rot->moves_b)
-			new_cost = rot->moves_a;
+		if (rot_new->moves_a > rot_new->moves_b)
+			new_cost = rot_new->moves_a;
 		else
-			new_cost = rot->moves_b;
+			new_cost = rot_new->moves_b;
 	}
 	else
-		new_cost = rot->moves_a + rot->moves_b;
-	if (new_cost < cheapest_node->cost)
+		new_cost = rot_new->moves_a + rot_new->moves_b;
+	if (rot_old->rev_direct_a == rot_old->rev_direct_b)
 	{
-		cheapest_node->cost = new_cost;
-		cheapest_node->index = index;
+		if (rot_old->moves_a > rot_old->moves_b)
+			old_cost = rot_old->moves_a;
+		else
+			old_cost = rot_old->moves_b;
 	}
+	else
+		old_cost = rot_old->moves_a + rot_old->moves_b;
+	if (new_cost < old_cost)
+		*rot_old = *rot_new;
 }
 
-static void	turk_rec(t_stacks stacks, t_stack_len stacks_len, t_list *stack,
-		size_t index)
+static void	turk_sort_magic(t_stacks stacks, t_stack_len stacks_len)
 {
-	t_mvs_rots			rots;
-	static t_cheapest	cheapest;
+	size_t		index;
+	t_mvs_rots	rots;
+	t_mvs_rots	rots_new;
+	t_list		*b_element;
 
-	if (index == 0)
+	b_element = *stacks.b;
+	index = 0;
+	rots.moves_a = get_target_moves(*stacks.a, *(int *)(b_element->content));
+	rots.moves_b = index++;
+	optimise_rots(&rots, stacks_len);
+	b_element = b_element->next;
+	while (b_element)
 	{
-		cheapest.index = 0;
-		cheapest.cost = LONG_MAX;
+		rots_new.moves_a = get_target_moves(*stacks.a,
+				*(int *)(b_element->content));
+		rots_new.moves_b = index;
+		optimise_rots(&rots_new, stacks_len);
+		update_cheapest(&rots, &rots_new);
+		b_element = b_element->next;
+		index++;
 	}
-	if (stack)
-	{
-		rots.moves_a = get_target_moves(*stacks.a, *(int *)(stack->content));
-		rots.moves_b = index;
-		optimise_rots(&rots, stacks_len);
-		update_cheapest(&cheapest, &rots, index);
-		if (!cheapest.cost)
-			return ;
-		turk_rec(stacks, stacks_len, stack->next, index + 1);
-	}
-	if (cheapest.index == index)
-		apply_instr(stacks, rots);
+	apply_instr(stacks, rots);
 }
 
 void	turk_sort(t_stacks stacks)
@@ -112,7 +119,7 @@ void	turk_sort(t_stacks stacks)
 	stacks_len.b = ft_lstsize(*stacks.b);
 	while (*stacks.b)
 	{
-		turk_rec(stacks, stacks_len, *stacks.b, 0);
+		turk_sort_magic(stacks, stacks_len);
 		p(stacks.a, stacks.b, "a", 1);
 		stacks_len.a++;
 		stacks_len.b--;
