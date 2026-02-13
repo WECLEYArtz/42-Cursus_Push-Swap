@@ -12,12 +12,6 @@
 
 #include "push_swap.h"
 
-/*	Takes stack a and b to to push everything from a to b.
- *	Leaves 3 nodes in stack a.
- *	Returns 0 if elements are pushed (if more than 3 nodes exist),
- *	otherwise the elements count in stack a if 3 or less only exist.
- *
- * */
 int	main(int argc, char **argv)
 {
 	t_list		*stack_a;

@@ -51,12 +51,6 @@ static void	update_for_target(t_list **stack, t_cmp_vars *cmp)
 	*stack = (*stack)->next;
 }
 
-/*
- *	Lookup the best position for "target" in "stack",
- *	Return the amount of rotations to get the value,
- *	(returns only for none reversed rotation)
- *
- * */
 size_t	get_target_moves(t_list *stack_a, int target)
 {
 	t_cmp_vars	cmps;

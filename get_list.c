@@ -23,9 +23,6 @@ static short	node_dup(t_list *stack_a, int value)
 	return (0);
 }
 
-/*
- * allocate for an integer to be the new node's content
- * */
 static t_list	*int_to_node(char **argv, short *valid)
 {
 	int	*integer;
