@@ -85,7 +85,7 @@ static void	update_cheapest(t_mvs_rots *rot_old, t_mvs_rots *rot_new)
 		*rot_old = *rot_new;
 }
 
-static void	turk_sort_magic(t_stacks stacks, t_stack_len stacks_len)
+static void	turk_sort_prepare_cheapest(t_stacks stacks, t_stack_len stacks_len)
 {
 	size_t		index;
 	t_mvs_rots	rots;
@@ -119,7 +119,7 @@ void	turk_sort(t_stacks stacks)
 	stacks_len.b = ft_lstsize(*stacks.b);
 	while (*stacks.b)
 	{
-		turk_sort_magic(stacks, stacks_len);
+		turk_sort_prepare_cheapest(stacks, stacks_len);
 		p(stacks.a, stacks.b, "a", 1);
 		stacks_len.a++;
 		stacks_len.b--;
