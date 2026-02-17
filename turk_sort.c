@@ -12,22 +12,29 @@
 
 #include "push_swap.h"
 
-static void	optimise_rots(t_mvs_rots *rots, t_stack_len stack_len)
+static t_mvs_rots	get_rots(
+		t_stacks stacks, t_stack_len stack_len,
+		t_list *b_element, size_t b_element_index)
 {
-	if (rots->moves_a > stack_len.a / 2)
+	t_mvs_rots	rots;
+
+	rots.moves_a = get_target_moves(*stacks.a, *(int *)(b_element->content));
+	rots.moves_b = b_element_index;
+	if (rots.moves_a > stack_len.a / 2)
 	{
-		rots->moves_a = stack_len.a - rots->moves_a;
-		rots->rev_direct_a = 1;
+		rots.moves_a = stack_len.a - rots.moves_a;
+		rots.rev_direct_a = 1;
 	}
 	else
-		rots->rev_direct_a = 0;
-	if (rots->moves_b > stack_len.b / 2)
+		rots.rev_direct_a = 0;
+	if (rots.moves_b > stack_len.b / 2)
 	{
-		rots->moves_b = stack_len.b - rots->moves_b;
-		rots->rev_direct_b = 1;
+		rots.moves_b = stack_len.b - rots.moves_b;
+		rots.rev_direct_b = 1;
 	}
 	else
-		rots->rev_direct_b = 0;
+		rots.rev_direct_b = 0;
+	return rots;
 }
 
 static void	apply_instr(t_stacks stacks, t_mvs_rots rot)
@@ -87,26 +94,21 @@ static void	update_cheapest(t_mvs_rots *rot_old, t_mvs_rots *rot_new)
 
 static void	turk_sort_prepare_cheapest(t_stacks stacks, t_stack_len stacks_len)
 {
-	size_t		index;
+	size_t		b_element_index;
 	t_mvs_rots	rots;
 	t_mvs_rots	rots_new;
 	t_list		*b_element;
 
 	b_element = *stacks.b;
-	index = 0;
-	rots.moves_a = get_target_moves(*stacks.a, *(int *)(b_element->content));
-	rots.moves_b = index++;
-	optimise_rots(&rots, stacks_len);
+	b_element_index = 0;
+	rots = get_rots(stacks, stacks_len, b_element, b_element_index++);
 	b_element = b_element->next;
 	while (b_element)
 	{
-		rots_new.moves_a = get_target_moves(*stacks.a,
-				*(int *)(b_element->content));
-		rots_new.moves_b = index;
-		optimise_rots(&rots_new, stacks_len);
+		rots_new = get_rots(stacks, stacks_len, b_element, b_element_index++);
 		update_cheapest(&rots, &rots_new);
 		b_element = b_element->next;
-		index++;
+		b_element_index++;
 	}
 	apply_instr(stacks, rots);
 }
